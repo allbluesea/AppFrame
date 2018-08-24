@@ -35,21 +35,21 @@
 // MARK: Public
 
 - (void)setNavBackItem {
-//    UIImage *backImg = [[UIImage imageNamed:@"navbar_back_gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    [self.navigationController.navigationBar setBackIndicatorImage:backImg];
-//    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:backImg];
-//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-//    self.navigationItem.backBarButtonItem = backItem;
+    //    UIImage *backImg = [[UIImage imageNamed:@"navbar_back_gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    //    [self.navigationController.navigationBar setBackIndicatorImage:backImg];
+    //    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:backImg];
+    //    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    //    self.navigationItem.backBarButtonItem = backItem;
     
-    [self setNavLeftItemWithImgName:@"navbar_back_gray" target:self action:@selector(back)];
+    [self setNavLeftItemWithImgName:@"navbar_back_gray"];
 }
 
-- (void)setNavLeftItemWithImgName:(NSString *)imgName target:(id)target action:(SEL)action  {
-    [self setNavItemsWithImgNames:@[imgName] side:NavigationBarLeftSide target:target action:action];
+- (void)setNavLeftItemWithImgName:(NSString *)imgName {
+    [self setNavItemsWithImgNames:@[imgName] side:NavigationBarLeftSide target:self action:@selector(navLeftItemClick:)];
 }
 
-- (void)setNavRightItemWithImgName:(NSString *)imgName target:(id)target action:(SEL)action {
-    [self setNavItemsWithImgNames:@[imgName] side:NavigationBarRightSide target:target action:action];
+- (void)setNavRightItemWithImgName:(NSString *)imgName {
+    [self setNavItemsWithImgNames:@[imgName] side:NavigationBarRightSide target:self action:@selector(navRightItemClick:)];
 }
 
 - (void)setNavItemsWithImgNames:(NSArray *)imgNames
@@ -61,7 +61,9 @@
         UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(0, 0, 24, 24);
         [btn setImage:[UIImage imageNamed:imgNames[i]] forState:UIControlStateNormal];
-        btn.tag = (side == NavigationBarLeftSide ? NAVIGATION_LEFT_ITEM_BASE_TAG : NAVIGATION_RIGHT_ITEM_BASE_TAG) + i;
+        if (imgNames.count > 1) {
+            btn.tag = (side == NavigationBarLeftSide ? NAVIGATION_LEFT_ITEM_BASE_TAG : NAVIGATION_RIGHT_ITEM_BASE_TAG) + i;
+        }
         [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         if (side == NavigationBarLeftSide) {
             [btn setContentEdgeInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
@@ -77,6 +79,53 @@
     } else {
         self.navigationItem.rightBarButtonItems = items;
     }
+}
+
+- (void)setNavLeftItemWithTitle:(NSString *)title titleColor:(UIColor *)titleColor {
+    [self setNavItemWithTitle:title titleColor:titleColor side:NavigationBarLeftSide target:self action:@selector(navLeftItemClick:)];
+}
+
+- (void)setNavRightItemWithTitle:(NSString *)title titleColor:(UIColor *)titleColor {
+    [self setNavItemWithTitle:title titleColor:titleColor side:NavigationBarRightSide target:self action:@selector(navRightItemClick:)];
+}
+
+- (void)setNavItemWithTitle:(NSString *)title
+                 titleColor:(UIColor *)titleColor
+                       side:(NavigationBarSide)side
+                     target:(id)target
+                     action:(SEL)action  {
+    CGFloat btnWidth = [title sizeWithAttributes:@{NSFontAttributeName: FONT(15.f)}].width + 1;
+    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, btnWidth, 24);
+    btn.titleLabel.font = FONT(15);
+    if (!titleColor) {
+        titleColor = [UIColor blackColor];
+    }
+    [btn setTitleColor:titleColor forState:UIControlStateNormal];
+    [btn setTitle:title forState:UIControlStateNormal];
+    [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    if (side == NavigationBarLeftSide) {
+        [btn setContentEdgeInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+    }else{
+        [btn setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, -10)];
+    }
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    if (side == NavigationBarLeftSide) {
+        self.navigationItem.leftBarButtonItem = item;
+    } else {
+        self.navigationItem.rightBarButtonItem = item;
+    }
+}
+
+- (void)navLeftItemClick:(UIButton *)sender {
+    [self back];
+}
+
+- (void)navRightItemClick:(UIButton *)sender {}
+
+- (void)setNavigationBarColor:(UIColor *)color {
+    self.navigationController.navigationBar.barTintColor = color;
 }
 
 - (void)setStatusBarStyle:(UIStatusBarStyle)statusBarStyle {
@@ -95,6 +144,12 @@
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (void)goToLogin {
+    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:[NSClassFromString(@"EGLoginViewController") new]];
+    [nav setClearBackground];
+    [self presentViewController:nav animated:YES completion:nil];;
 }
 
 // 提示

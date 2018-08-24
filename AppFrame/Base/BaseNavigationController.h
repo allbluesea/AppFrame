@@ -10,4 +10,7 @@
 
 @interface BaseNavigationController : UINavigationController
 
+/// 设置透明背景
+- (void)setClearBackground;
+
 @end

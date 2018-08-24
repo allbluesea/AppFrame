@@ -25,6 +25,11 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)setClearBackground {
+    [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationBar setShadowImage:[UIImage new]];
+}
+
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     viewController.hidesBottomBarWhenPushed = self.viewControllers.count > 0;
     [super pushViewController:viewController animated:YES];

@@ -50,6 +50,7 @@
 		1837AF96212AE29C0077C585 /* MBProgressHUD+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1837AF95212AE29C0077C585 /* MBProgressHUD+Extension.m */; };
 		184B46EF212F9A3E00F9871B /* WebSocketUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B46EC212F9A3E00F9871B /* WebSocketUtil.m */; };
 		184B46F0212F9A3E00F9871B /* GZIPUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B46ED212F9A3E00F9871B /* GZIPUtil.m */; };
+		1853FBD7213005FE00E8E567 /* UnderlineTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1853FBD6213005FE00E8E567 /* UnderlineTextField.m */; };
 		18F445B7212B9771004A1219 /* AppDelegate+Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F445B6212B9771004A1219 /* AppDelegate+Service.m */; };
 		18F445BB212B9D0E004A1219 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F445BA212B9D0E004A1219 /* NetworkManager.m */; };
 		18F445BE212B9F59004A1219 /* NetworkManager+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F445BD212B9F59004A1219 /* NetworkManager+Extension.m */; };
@@ -152,6 +153,8 @@
 		184B46EC212F9A3E00F9871B /* WebSocketUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketUtil.m; sourceTree = "<group>"; };
 		184B46ED212F9A3E00F9871B /* GZIPUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZIPUtil.m; sourceTree = "<group>"; };
 		184B46EE212F9A3E00F9871B /* WebSocketUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketUtil.h; sourceTree = "<group>"; };
+		1853FBD5213005FE00E8E567 /* UnderlineTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnderlineTextField.h; sourceTree = "<group>"; };
+		1853FBD6213005FE00E8E567 /* UnderlineTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnderlineTextField.m; sourceTree = "<group>"; };
 		18F445B5212B9771004A1219 /* AppDelegate+Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Service.h"; sourceTree = "<group>"; };
 		18F445B6212B9771004A1219 /* AppDelegate+Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Service.m"; sourceTree = "<group>"; };
 		18F445B9212B9D0E004A1219 /* NetworkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
@@ -523,6 +526,8 @@
 			children = (
 				182B2F10212D4B3C000CCB24 /* ADPageView.h */,
 				182B2F11212D4B3C000CCB24 /* ADPageView.m */,
+				1853FBD5213005FE00E8E567 /* UnderlineTextField.h */,
+				1853FBD6213005FE00E8E567 /* UnderlineTextField.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -761,6 +766,7 @@
 				184B46EF212F9A3E00F9871B /* WebSocketUtil.m in Sources */,
 				18F445D2212BB5DE004A1219 /* TADotView.m in Sources */,
 				1837AF87212ABB400077C585 /* ViewController.m in Sources */,
+				1853FBD7213005FE00E8E567 /* UnderlineTextField.m in Sources */,
 				1837AF45212A73E70077C585 /* UIDevice+Extension.m in Sources */,
 				18F445D5212BB5DE004A1219 /* SDCycleScrollView.m in Sources */,
 				1837AF40212A73E70077C585 /* NSDate+Additions.m in Sources */,
