@@ -1,0 +1,214 @@
+//
+//  NSString+Additions.m
+//  strong
+//
+//  Created by leijun on 13-9-25.
+//  Copyright (c) 2013年 hoodinn. All rights reserved.
+//
+
+#import "NSString+Additions.h"
+#import <CommonCrypto/CommonDigest.h>
+# import "NSDate+Additions.h"
+
+@implementation NSString (Additions)
+#pragma mark - Regular expression
+- (NSMutableArray *)itemsForPattern:(NSString *)pattern
+{
+    return [self itemsForPattern:pattern captureGroupIndex:0];
+}
+
+- (NSMutableArray *)itemsForPattern:(NSString *)pattern captureGroupIndex:(NSUInteger)index
+{
+    if ( !pattern )
+        return nil;
+    
+    NSError *error = nil;
+    NSRegularExpression *regx = [[NSRegularExpression alloc] initWithPattern:pattern
+                                                                     options:NSRegularExpressionCaseInsensitive error:&error];
+    if (error)
+    {
+       // NSLog(@"Error for create regular expression:\nString: %@\nPattern %@\nError: %@\n",self, pattern, error);
+    }
+    else
+    {
+        NSMutableArray *results = [[NSMutableArray alloc] init];
+        NSRange searchRange = NSMakeRange(0, [self length]);
+        [regx enumerateMatchesInString:self options:0 range:searchRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+            
+            if(result.numberOfRanges > index)
+            {
+                NSRange groupRange =  [result rangeAtIndex:index];
+                NSString *match = [self substringWithRange:groupRange];
+                [results addObject:match];
+            }
+        }];
+        [regx release];
+        return results;
+    }
+    [regx release];
+
+    return nil;
+}
+
+- (NSString *)itemForPatter:(NSString *)pattern
+{
+    return [self itemForPattern:pattern captureGroupIndex:0];
+}
+
+- (NSString *)itemForPattern:(NSString *)pattern captureGroupIndex:(NSUInteger)index
+{
+    if ( !pattern )
+        return nil;
+    
+    NSError *error = nil;
+    NSRegularExpression *regx = [[NSRegularExpression alloc] initWithPattern:pattern
+                                                                     options:NSRegularExpressionCaseInsensitive error:&error];
+    if (error)
+    {
+       // NSLog(@"Error for create regular expression:\nString: %@\nPattern %@\nError: %@\n",self, pattern, error);
+    }
+    else
+    {
+        NSRange searchRange = NSMakeRange(0, [self length]);
+        NSTextCheckingResult *result = [regx firstMatchInString:self options:0 range:searchRange];
+        NSRange groupRange = [result rangeAtIndex:index];
+        NSString *match = [self substringWithRange:groupRange];
+        [regx release];
+        return match;
+    }
+    [regx release];
+    return nil;
+}
+
+#pragma mark - Time Interval
+- (NSTimeInterval)timeIntervalFromString:(NSString *)timeString withDateFormat:(NSString *)format
+{
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setDateFormat:format];
+    return [[formatter dateFromString:timeString] timeIntervalSince1970];
+}
+
+- (NSTimeInterval)localTimeIntervalFromString:(NSString *)timeString withDateFormat:(NSString *)format
+{
+    NSTimeInterval timeInterval = [self timeIntervalFromString:timeString withDateFormat:format];
+    NSUInteger secondsOffset = [[NSTimeZone localTimeZone] secondsFromGMT];
+    return (timeInterval + secondsOffset);
+}
+
+static  NSDateFormatter   *dateFormatter = nil;
++ (NSString*)timestampWithSeconds :(NSInteger) seconds
+{
+	NSString *_timestamp = @"";
+
+   NSDate *theDate = [NSDate dateWithTimeIntervalSince1970:seconds];
+
+    if (dateFormatter == nil) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+    }
+    
+    if ([theDate isToday]) { //今天
+        [dateFormatter setDateFormat:@"今天 HH:mm"];
+        _timestamp = [dateFormatter stringFromDate:theDate];
+       return _timestamp;
+        
+    }
+   else if ([theDate isYesterday]) { //昨天
+    
+        [dateFormatter setDateFormat:@"昨天 HH:mm"];
+        _timestamp = [dateFormatter stringFromDate:theDate];
+        return _timestamp;
+        
+    }
+    else {
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        _timestamp = [dateFormatter stringFromDate:theDate];
+    }
+
+    return _timestamp;
+}
+
+
+#pragma mark - Contains
+- (BOOL)contains:(NSString *)piece
+{
+    return ( [self rangeOfString:piece].location != NSNotFound );
+}
+
+-(NSString *) md5
+{
+    const char *str = [self UTF8String];
+    if (str == NULL)
+    {
+        str = "";
+    }
+    unsigned char r[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(str, (CC_LONG)strlen(str), r);
+    NSString *filename = [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+                          r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15]];
+    
+    return filename;
+
+}
+- (NSString *)trim
+{
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+- (NSString *)replaceCharactersAtIndexes:(NSArray *)indexes withString:(NSString *)aString
+{
+    NSAssert(indexes != nil, @"%s: indexes 不可以为nil", __PRETTY_FUNCTION__);
+    NSAssert(aString != nil, @"%s: aString 不可以为nil", __PRETTY_FUNCTION__);
+    
+    NSUInteger offset = 0;
+    NSMutableString *raw = [self mutableCopy];
+    
+    NSInteger prevLength = 0;
+    for(NSInteger i = 0; i < [indexes count]; i++)
+    {
+            NSRange range = [[indexes objectAtIndex:i] rangeValue];
+            prevLength = range.length;
+            
+            range.location -= offset;
+            [raw replaceCharactersInRange:range withString:aString];
+            offset = offset + prevLength - [aString length];
+        
+    }
+    
+    return [raw autorelease] ;
+}
+
+- (NSString*)imageSmall {
+    NSString *str =  self;
+    if(str && ![str isEqualToString:@""])
+    {
+        str =  [NSString stringWithFormat:@"%@_60_60.%@",[str stringByDeletingPathExtension], [str pathExtension]] ;
+        str = [str stringByReplacingOccurrencesOfString:@"http:/" withString:@"http://"];
+
+    }
+    return str;
+}
+
+- (NSString *)imageMiddle
+{
+    NSString *str =  self;
+    if(str && ![str isEqualToString:@""])
+    {
+        str =  [NSString stringWithFormat:@"%@_120_120.%@",[str stringByDeletingPathExtension], [str pathExtension]] ;
+        str = [str stringByReplacingOccurrencesOfString:@"http:/" withString:@"http://"];
+        
+    }
+    return str;
+}
++ (NSString *)cachesPath
+{
+    static dispatch_once_t onceToken;
+	static NSString *cachedPath;
+	
+	dispatch_once(&onceToken, ^{
+		cachedPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+	});
+	
+	return cachedPath;
+}
+
+@end

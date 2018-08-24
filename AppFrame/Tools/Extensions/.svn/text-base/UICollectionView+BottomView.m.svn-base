@@ -1,0 +1,42 @@
+//
+//  UICollectionView+BottomView.m
+//  InsuranceHelp
+//
+//  Created by bxd on 2017/8/11.
+//  Copyright © 2017年 王保湘. All rights reserved.
+//
+
+#import "UICollectionView+BottomView.h"
+
+@implementation UICollectionView (BottomView)
+
+- (void)willMoveToSuperview:(nullable UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    if (newSuperview) {
+        self.footer.hidden = YES;
+        [self.header addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+    }
+    
+}
+
+
+
+- (void)dealloc{
+    [self.header removeObserver:self forKeyPath:@"state"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    if (object == self.header) {
+        if ([keyPath isEqualToString:@"state"]) {
+            if (self.header.state == MJRefreshHeaderStateIdle &&//闲置状态说明请求完毕
+                self.visibleCells.count == 0 &&//cell为0说明没有数据
+                self.header.isRefreshing == NO) {
+                self.emptyDataSetSource = (id<DZNEmptyDataSetSource>)[self viewController];
+                self.emptyDataSetDelegate = (id<DZNEmptyDataSetDelegate>)[self viewController];
+                [self reloadData];
+            }
+        }
+    }
+}
+
+@end

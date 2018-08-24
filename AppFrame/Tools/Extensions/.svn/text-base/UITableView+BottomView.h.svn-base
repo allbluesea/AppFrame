@@ -1,0 +1,17 @@
+//
+//  UITableView+BottomView.h
+//  InsuranceHelp
+//
+//  Created by bxd365 on 2017/7/25.
+//  Copyright © 2017年 王保湘. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+//typedef NS_ENUM(NSInteger, EmptyType) {
+//    EmptyType_Normal,
+//};
+
+@interface UITableView (BottomView)
+//@property (nonatomic, assign) EmptyType emptyType;
+@end

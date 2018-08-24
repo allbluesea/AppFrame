@@ -1,0 +1,37 @@
+
+@interface UIFont (Additions)
+
++ (UIFont*)regular:(CGFloat)size;
++ (UIFont*)bold:(CGFloat)size;
+
++ (UIFont*)h1;
++ (UIFont*)b1;
+
++ (UIFont*)h2;
++ (UIFont*)b2;
+
++ (UIFont*)h3;
++ (UIFont*)b3;
+
++ (UIFont*)h4;
++ (UIFont*)b4;
+
++ (UIFont*)h5;
++ (UIFont*)b5;
+
++ (UIFont*)h6;
++ (UIFont*)b6;
+
++ (UIFont*)h7;
++ (UIFont*)b7;
+
++ (UIFont*)b25;
+
++ (UIFont*)regularNumber:(CGFloat)size;
++ (UIFont*)regularNumber:(CGFloat)size italic:(BOOL)italic;
+
++ (UIFont*)nh1;
++ (UIFont*)nh2;
+
+@end
+

@@ -1,0 +1,55 @@
+//
+//  UITableView+BottomView.m
+//  InsuranceHelp
+//
+//  Created by bxd365 on 2017/7/25.
+//  Copyright © 2017年 王保湘. All rights reserved.
+//
+
+#import "UITableView+BottomView.h"
+#import <objc/runtime.h>
+
+//static UIView *noDataView = nil;
+
+@implementation UITableView (BottomView)
+//@selector(emptyType)  emptyType为get方法名
+//- (void)setEmptyType:(EmptyType)emptyType{
+//    objc_setAssociatedObject(self, @selector(emptyType), @(emptyType), OBJC_ASSOCIATION_ASSIGN);
+//}
+//
+//- (EmptyType)emptyType{
+//    EmptyType type = [objc_getAssociatedObject(self, @selector(emptyType)) integerValue];
+//    if (!type) {
+//        type = EmptyType_Normal;
+//        objc_setAssociatedObject(self, @selector(emptyType), @(type), OBJC_ASSOCIATION_ASSIGN);
+//    }
+//    return type;
+//}
+
+- (void)drawRect:(CGRect)rect{
+    [super drawRect:rect];
+    self.footer.hidden = YES;
+    [self.header addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:@"UITableView+BottomView"];
+}
+
+- (void)dealloc{
+    [self.header removeObserver:self forKeyPath:@"state" context:@"UITableView+BottomView"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    if (object == self.header) {
+        if ([keyPath isEqualToString:@"state"]) {
+            if (self.header.state == MJRefreshHeaderStateIdle &&//闲置状态说明请求完毕
+                self.visibleCells.count == 0 &&//cell为0说明没有数据
+                self.header.isRefreshing == NO) {
+                self.emptyDataSetSource = (id<DZNEmptyDataSetSource>)[self viewController];
+                self.emptyDataSetDelegate = (id<DZNEmptyDataSetDelegate>)[self viewController];
+                [self reloadData];
+            }else if (self.visibleCells.count > 0){
+
+            }
+        }
+    }
+}
+
+@end

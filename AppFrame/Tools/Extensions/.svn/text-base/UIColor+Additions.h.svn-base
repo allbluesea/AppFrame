@@ -1,0 +1,52 @@
+
+typedef NS_ENUM(NSUInteger, GradientType) {// 渐变方向
+    GradientTypeTopToBottom      = 0,//从上到下
+    GradientTypeLeftToRight      = 1,//从左到右
+    GradientTypeUpleftToLowright = 2,//左上到右下
+    GradientTypeUprightToLowleft = 3,//右上到左下
+};
+
+@interface UIColor (Additions)
+//最黑的标题黑色
++ (UIColor*)black05;
+//主标题黑色title
++ (UIColor*)black35;
++ (UIColor*)black55;
++ (UIColor*)black71;
+//二级标题黑色content
++ (UIColor*)black95;
+//背景灰色
++ (UIColor*)grayf6;
++ (UIColor*)blackc5;
++ (UIColor*)blackd5;
++ (UIColor*)blacke5;
++ (UIColor*)blackf2;
++ (UIColor*)blackf5;
++ (UIColor*)g1;
++ (UIColor*)g2;
++ (UIColor*)g3;
++ (UIColor*)g4;
++ (UIColor*)g5;
++ (UIColor*)blue;
++ (UIColor*)blue2;
++ (UIColor*)red;
++ (UIColor*)orange;
++ (UIColor*)green;
++ (UIColor*)pink;
++ (UIColor*)barItemCancel;
+
++ (UIColor*)colorWithRGB:(int)rgb;
++ (UIColor*)colorWithRedi:(Byte)red green:(Byte)green blue:(Byte)blue alpha:(Byte)alpha;
++ (UIColor*)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue;
++ (UIColor*)colorWithRedi:(Byte)red green:(Byte)green blue:(Byte)blue;
++ (UIColor*)colorWithHexString:(NSString *)hexString;
++ (UIColor *)colorWithHexAString:(NSString *)hexColor;
+// 随机生成一个颜色
++ (UIColor*)randomColor;
+
+//渐变色
++ (UIColor *)gradientColors:(NSArray*)colors
+               gradientType:(GradientType)gradientType
+                    imgSize:(CGSize)imgSize;
+
+@end

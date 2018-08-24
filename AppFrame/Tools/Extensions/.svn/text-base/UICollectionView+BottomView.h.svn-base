@@ -1,0 +1,13 @@
+//
+//  UICollectionView+BottomView.h
+//  InsuranceHelp
+//
+//  Created by bxd on 2017/8/11.
+//  Copyright © 2017年 王保湘. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UICollectionView (BottomView)
+
+@end

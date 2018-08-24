@@ -1,0 +1,97 @@
+
+# import "UIFont+Additions.h"
+
+//@"Arial-BoldMT"
+# define FONT_NAME @"FZLanTingHeiS-R-GB"
+# define BFONT_NAME @"FZLanTingHeiS-R-GB"
+
+@implementation UIFont (Additions)
+
++ (UIFont*)regular:(CGFloat)size {
+    return [UIFont fontWithName:FONT_NAME size:size];
+ // return [UIFont systemFontOfSize:size];
+}
+
++ (UIFont*)bold:(CGFloat)size {
+    return [UIFont fontWithName:BFONT_NAME size:size];
+ // return [UIFont boldSystemFontOfSize:size];
+}
+
++ (UIFont*)h1 {
+    return [UIFont regular:10];
+}
+
++ (UIFont*)b1 {
+    return [UIFont bold:10];
+}
+
++ (UIFont*)h2 {
+    return [UIFont regular:12];
+}
+
++ (UIFont*)b2 {
+    return [UIFont bold:12];
+}
+
++ (UIFont*)h3 {
+    return [UIFont regular:13];
+}
+
++ (UIFont*)b3 {
+    return [UIFont bold:13];
+}
+
++ (UIFont*)h4 {
+    return [UIFont regular:14];
+}
+
++ (UIFont*)b4 {
+    return [UIFont bold:14];
+}
+
++ (UIFont*)h5 {
+    return [UIFont regular:15];
+}
+
++ (UIFont*)b5 {
+    return [UIFont bold:15];
+}
+
++ (UIFont*)h6 {
+    return [UIFont regular:16];
+}
+
++ (UIFont*)b6 {
+    return [UIFont bold:16];
+}
++ (UIFont*)h7 {
+    return [UIFont regular:18];
+}
+
++ (UIFont*)b7 {
+    return [UIFont bold:18];
+}
+
++ (UIFont*)b25 {
+    return[UIFont bold:25];
+}
+
++ (UIFont*)regularNumber:(CGFloat)size {
+    return [UIFont regularNumber:size italic:NO];
+}
+
++ (UIFont*)regularNumber:(CGFloat)size italic:(BOOL)italic {
+    if (italic)
+        return [UIFont fontWithName:@"Avenir-HeavyOblique" size:size];
+    return [UIFont fontWithName:@"Avenir-Heavy" size:size];
+}
+
++ (UIFont*)nh1 {
+    return [UIFont regularNumber:20];
+}
+
++ (UIFont*)nh2 {
+    return [UIFont regularNumber:17];
+}
+
+@end

@@ -1,0 +1,35 @@
+//
+//  UIViewController+HDPopupViewController.h
+//  VenusIphone
+//
+//  Created by wanghaibo on 12-7-16.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#define kHDOverlayViewTag 23945
+
+typedef enum {
+    HDPopupViewAnimationSlideBottomTop = 1,
+    HDPopupViewAnimationSlideRightLeft,
+    HDPopupViewAnimationSlideLeftRight,
+    HDPopupViewAnimationSlideBottomBottom,
+    HDPopupViewAnimationFade
+} HDPopupViewAnimation;
+
+@interface UIViewController (HDPopupViewController)
+
+@property (nonatomic,assign) BOOL popViewDissmissWhenClick;
+
+- (void)presentPopupViewController:(UIView*)popupView animationType:(HDPopupViewAnimation)animationType dismissWhenClickBackGround:(BOOL) dismissWhenClick;
+- (void)presentPopupViewController:(UIView*)popupView animationType:(HDPopupViewAnimation)animationType dismissWhenClickBackGround:(BOOL) dismissWhenClick InView:(UIView *) topView;
+
+
+- (void)dismissPopupViewControllerWithanimationType:(HDPopupViewAnimation)animationType completion:(void (^)(BOOL finished))completion;
+- (void)dismissPopupViewControllerWithanimationType:(HDPopupViewAnimation)animationType InView:(UIView *)topView completion:(void (^)(BOOL finished))completion;
+
+-(void) disposePopupViewController ;
+
+//-(void)showLoadAnimation;
+//-(void)dismissLoadAnimation;
+@end

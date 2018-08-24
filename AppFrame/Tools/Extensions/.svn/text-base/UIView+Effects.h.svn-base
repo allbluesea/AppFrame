@@ -1,0 +1,16 @@
+//
+//  UIView+Effects.h
+//  VenusIphone
+//
+//  Created by wbx on 14-5-5.
+//  Copyright (c) 2014年 hoodinn. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface UIView (Effects)
+
+- (void)blur;
+- (void)unBlur;
+
+@end

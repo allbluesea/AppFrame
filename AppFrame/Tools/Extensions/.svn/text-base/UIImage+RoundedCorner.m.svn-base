@@ -1,0 +1,70 @@
+//
+//  UIImage+RoundedCorner.m
+//  VenusIphone
+//
+//  Created by wanghaibo on 12-4-19.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import "UIImage+RoundedCorner.h"
+// Private helper methods
+@interface UIImage ()
+- (void)addImageRounded:(CGSize)size;
+@end
+
+@implementation UIImage (RoundedCorner)
+
+static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWidth,
+                                 float ovalHeight)
+{
+    float fw, fh;
+    if (ovalWidth == 0 || ovalHeight == 0) {
+        CGContextAddRect(context, rect);
+        return;
+    }
+    
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, CGRectGetMinX(rect), CGRectGetMinY(rect));
+    CGContextScaleCTM(context, ovalWidth, ovalHeight);
+    fw = CGRectGetWidth(rect) / ovalWidth;
+    fh = CGRectGetHeight(rect) / ovalHeight;
+    
+    CGContextMoveToPoint(context, fw, fh/2);  // Start at lower right corner
+    CGContextAddArcToPoint(context, fw, fh, fw/2, fh, 1);  // Top right corner
+    CGContextAddArcToPoint(context, 0, fh, 0, fh/2, 1); // Top left corner
+    CGContextAddArcToPoint(context, 0, 0, fw/2, 0, 1); // Lower left corner
+    CGContextAddArcToPoint(context, fw, 0, fw, fh/2, 1); // Back to lower right
+    
+    CGContextClosePath(context);
+    CGContextRestoreGState(context);
+}
+
+
+- (id) addImageRounded
+{
+    /*
+    // the size of CGContextRef
+    int w = 60;//self.size.width;// size.width;
+    int h = 60;//self.size.height;// size.height;
+    
+    UIImage *img = self;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(NULL, w, h, 8, 4 * w, colorSpace, kCGImageAlphaPremultipliedFirst);
+    CGRect rect = CGRectMake(0, 0, w, h);
+    
+    CGContextBeginPath(context);
+    addRoundedRectToPath(context, rect, 4, 4);
+    CGContextClosePath(context);
+    CGContextClip(context);
+    CGContextDrawImage(context, CGRectMake(0, 0, w, h), img.CGImage);
+    CGImageRef imageMasked = CGBitmapContextCreateImage(context);
+    CGContextRelease(context);
+    CGColorSpaceRelease(colorSpace);
+    UIImage *roundedImage = [UIImage imageWithCGImage:imageMasked];
+    CGImageRelease(imageMasked);
+    return roundedImage;*/
+    return self;
+ 
+}
+
+@end

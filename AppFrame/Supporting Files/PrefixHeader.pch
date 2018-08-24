@@ -1,0 +1,39 @@
+//
+//  PrefixHeader.pch
+//  AppFrame
+//
+//  Created by icebrk on 2018/8/20.
+//  Copyright © 2018年 Firebrk. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef __OBJC__
+
+// 宏
+#import "DefineList.h"
+#import "Style.h"
+#import "Config.h"
+#import "APIList.h"
+#import "NotificationList.h"
+
+// 工具类及扩展
+#import "UIType+Extension.h"
+#import "UIDevice+Extension.h"
+#import "MBProgressHUD+Extension.h"
+#import "NetworkManager+Extension.h"
+#import "AppDelegate+Service.h"
+
+// 第三方
+#import <MJRefresh.h>
+#import <MJExtension.h>
+
+
+
+#endif
+
+#endif /* PrefixHeader_pch */

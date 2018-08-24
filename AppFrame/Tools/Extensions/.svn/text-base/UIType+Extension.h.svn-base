@@ -1,0 +1,181 @@
+//
+//  UIType+Extension.h
+//  InsuranceHelp
+//
+//  Created by 王保湘 on 15-7-10.
+//  Copyright (c) 2015年 王保湘. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#pragma mark - UIView Inline Functions
+
+UIKIT_STATIC_INLINE void
+UIViewSetFrameOrigin(UIView *view, CGPoint origin) {
+    view.frame = CGRectMake(origin.x, origin.y, view.frame.size.width, view.frame.size.height);
+}
+
+UIKIT_STATIC_INLINE void
+UIViewSetFrameSize(UIView *view, CGSize size) {
+    view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, size.width, size.height);
+}
+
+UIKIT_STATIC_INLINE void
+UIViewSetFrameX(UIView *view, CGFloat x) {
+    view.frame = CGRectMake(x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
+}
+
+UIKIT_STATIC_INLINE void
+UIViewSetFrameY(UIView *view, CGFloat y) {
+    view.frame = CGRectMake(view.frame.origin.x, y, view.frame.size.width, view.frame.size.height);
+}
+
+UIKIT_STATIC_INLINE void
+UIViewSetFrameWidth(UIView *view, CGFloat width) {
+    view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, width, view.frame.size.height);
+}
+
+UIKIT_STATIC_INLINE void
+UIViewSetFrameHeight(UIView *view, CGFloat height) {
+    view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, height);
+}
+
+UIKIT_STATIC_INLINE void
+UIViewSetFrameCenterX(UIView *view, CGFloat x) {
+    CGPoint center = view.center;
+    center.x = x;
+    view.center = center;
+}
+
+UIKIT_STATIC_INLINE void
+UIViewSetFrameCenterY(UIView *view, CGFloat y) {
+    CGPoint center = view.center;
+    center.y = y;
+    view.center = center;
+}
+
+//判断一个字符串是否是纯数字
+static inline BOOL IsPureInt(NSString *s) {
+    NSScanner* scan = [NSScanner scannerWithString:s];
+    int val;
+    return [scan scanInt:&val] && [scan isAtEnd];
+}
+
+//对象转换成json字符串
+static inline NSString *ObjectToJson(id obj) {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    NSString *jsonString = @"";
+    
+    if (!jsonData){
+        NSLog(@"error: %@", error);
+    }else{
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
+}
+//json字符串转换成对象
+static inline id JsonToObject(NSString *s){
+    NSError *error = nil;
+    id jsonObject= [NSJSONSerialization JSONObjectWithData:[s dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
+    if (!jsonObject){
+        NSLog(@"error: %@", error);
+    }
+    return jsonObject;
+}
+
+#pragma mark NSString+Extension
+
+@interface NSString (extension)
+// 安全判断是不是为空
+- (BOOL)notEmpty;
+
+// 随机字符串
++ (NSString*)RandomString;
+
++ (NSString*)RandomString:(NSUInteger)length;
+
++ (NSString*)RandomStringWithNoSpace:(NSUInteger)length;
+
+@end
+
+#pragma mark UIColor+Extension
+
+@interface NSRandom : NSObject
+
++ (CGFloat)valueBoundary:(CGFloat)low To:(CGFloat)high;
+
+@end
+
+#pragma mark  UIImage+Extension
+
+static const CGPoint kCGAnchorPointCenter = { 0.5f, 0.5f };
+static const CGPoint kCGAnchorPointTC = { .5f, 0.f };
+static const CGPoint kCGAnchorPointLC = { 0.f, .5f };
+
+@interface UIImage (extension)
+
+// 自动使用中心点拉大图片
++ (UIImage*)stretchImage:(NSString*)name;
++ (UIImage*)stretchImage:(NSString*)name anchorPoint:(CGPoint)pt;
++ (UIImage*)stretchImage:(NSString*)name atPoint:(CGPoint)pt;
++ (UIImage*)stretchImageHov:(NSString*)name;
++ (UIImage*)stretchImageVec:(NSString*)name;
+
+// 裁剪图片
+- (UIImage*)imageClip:(CGRect)rc;
+
++ (UIImage *) retinaImage:(UIImage *)image;
+//修改图片大小
+- (UIImage *)imageByScalingToSize:(CGSize)targetSize;
+@end
+
+@interface Utility : NSObject
++ (UIImage *)getUploadImage:(UIImage *)originalImage;
+@end
+
+
+//设备类型
+typedef enum {
+    kUIDeviceTypeIPhone = 0x1000,
+    kUIDeviceTypeIPad = 0x2000,
+    kUIDeviceTypeIPod = 0x3000,
+    kUIDeviceTypeSimulator = 0x0001,
+} UIDeviceType;
+
+@interface UIDevice (extension)
+
++ (BOOL)IsRoot;
++ (UIDeviceType)DeviceType;
+
+@end
+
+NSString * getLatestTimeStrWithInterval(NSTimeInterval seconds);
+NSString * getLatestTimeStrWithStr(NSString * str);
+
+NSString * getTimeWithDayFormatStr(NSString * str);
+
+NSString * getDayFormatStr(NSString * str);
+
+@interface NSArray (extension)
+// 安全读取数据
+- (id)objectAtIndexSafe:(NSUInteger)index;
+@end
+
+@interface UIView(Ex)
+- (UIViewController *) containingViewController;
+- (id) findtraverseResponderChainForUIViewController;
+-(UINavigationController *) findNavigationController;
+- (UIViewController *)viewController;
+@end
+
+//@interface NSURLRequest(DataController)
+//
+//@end
+//@interface UIType_Extension : NSObject
+//
+//@end
+

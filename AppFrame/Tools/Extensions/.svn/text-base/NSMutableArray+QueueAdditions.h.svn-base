@@ -1,0 +1,16 @@
+//
+//  NSMutableArray+QueueAdditions.h
+//  VenusIphone
+//
+//  Created by apple on 12-8-17.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface NSMutableArray (QueueAdditions)
+
+- (id)deQueue;
+- (void)enQueue:(id)obj;
+
+@end

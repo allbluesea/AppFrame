@@ -1,0 +1,18 @@
+//
+//  UIImage+fixOrientation.h
+//  VenusIphone
+//
+//  Created by apple on 12-9-13.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UIImage (fixOrientation)
+/*我们通过相机或是在相册中取图片上传到服务器的时候，
+    服务器端显示的图片的方向可能会向左旋转，
+    我们可以写一个UIImage的分类来调整Image的方向；
+ */
+- (UIImage *)fixOrientation;
+
+@end

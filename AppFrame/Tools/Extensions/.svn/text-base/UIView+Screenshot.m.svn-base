@@ -1,0 +1,73 @@
+//
+//  UIView+Screenshot.m
+//  Video Blurring
+//
+//  Created by Mike Jaoudi on 12/11/13.
+//  Copyright (c) 2013 Mike Jaoudi. All rights reserved.
+//
+
+# import "UIView+Screenshot.h"
+# define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
+@implementation UIView (Screenshot)
+
+int kIOSMajorVersion = 0;
+BOOL kIOS7Above = NO;
+
+-(UIImage*)convertViewToImage{
+    NSString* sysver = [UIDevice currentDevice].systemVersion;
+    NSArray* arrvers = [sysver componentsSeparatedByString:@"."];
+    kIOSMajorVersion = [arrvers.firstObject intValue];
+    kIOS7Above = kIOSMajorVersion >= 7;
+   
+    if (!isPad && kIOS7Above) {
+        /*此方法在ipad上会闪 drawViewHierarchyInRect 该方法性能更好 占内存空间更小*/
+        UIGraphicsBeginImageContext(self.bounds.size);
+        if ([self respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)]) {
+            [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+        }else{
+            if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+                UIGraphicsBeginImageContextWithOptions(self.window.bounds.size, NO, [UIScreen mainScreen].scale);
+            else
+                UIGraphicsBeginImageContext(self.window.bounds.size);
+            [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+        }
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return image;
+
+    }
+    else
+    {
+        CGSize imageSize = [[UIScreen mainScreen] bounds].size;
+        if (NULL != UIGraphicsBeginImageContextWithOptions) {
+            UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
+        }
+        else
+        {
+            UIGraphicsBeginImageContext(imageSize);
+        }
+        
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        for (UIWindow * window in [[UIApplication sharedApplication] windows]) {
+            if (![window respondsToSelector:@selector(screen)] || [window screen] == [UIScreen mainScreen]) {
+                CGContextSaveGState(context);
+                CGContextTranslateCTM(context, [window center].x, [window center].y);
+                CGContextConcatCTM(context, [window transform]);
+                CGContextTranslateCTM(context, -[window bounds].size.width*[[window layer] anchorPoint].x, -[window bounds].size.height*[[window layer] anchorPoint].y);
+                [[window layer] renderInContext:context];
+                
+                CGContextRestoreGState(context);
+            }
+        }
+        
+       UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        
+            return image;
+    }
+}
+
+
+@end
