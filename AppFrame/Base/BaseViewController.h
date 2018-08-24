@@ -20,6 +20,10 @@ typedef NS_ENUM(NSUInteger, NavigationBarSide) {
 
 /// 导航栏是否隐藏
 @property (nonatomic, assign, getter=isNavBarHidden) BOOL navBarHidden;
+/// 导航栏左侧按钮
+@property (nonatomic, strong) UIButton *navLeftButton;
+/// 导航栏右侧按钮
+@property (nonatomic, strong) UIButton *navRightButton;
 
 // 导航栏按钮设置
 
