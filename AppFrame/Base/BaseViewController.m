@@ -70,6 +70,15 @@
         }else{
             [btn setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, -10)];
         }
+        
+        if (imgNames.count == 1) {
+            if (side == NavigationBarLeftSide) {
+                self.navLeftButton = btn;
+            }else{
+                self.navRightButton = btn;
+            }
+        }
+        
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:btn];
         [items addObject:item];
     }
@@ -110,8 +119,10 @@
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     if (side == NavigationBarLeftSide) {
+        self.navLeftButton = btn;
         self.navigationItem.leftBarButtonItem = item;
     } else {
+        self.navRightButton = btn;
         self.navigationItem.rightBarButtonItem = item;
     }
 }
