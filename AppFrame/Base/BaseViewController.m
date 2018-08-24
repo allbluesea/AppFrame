@@ -94,9 +94,7 @@
                        side:(NavigationBarSide)side
                      target:(id)target
                      action:(SEL)action  {
-    CGFloat btnWidth = [title sizeWithAttributes:@{NSFontAttributeName: FONT(15.f)}].width + 1;
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, btnWidth, 24);
     btn.titleLabel.font = FONT(15);
     if (!titleColor) {
         titleColor = [UIColor blackColor];
