@@ -28,7 +28,7 @@
 // MARK: ----- Static URL -----
 
 // 用户协议
-#define USER_PROTOCOL_URL @""
+static NSString * const USER_PROTOCOL_URL = @"xxx"; ///< 用户协议
 
 
 

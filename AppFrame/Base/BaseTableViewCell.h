@@ -15,5 +15,7 @@
 
 /** 高度 */
 + (CGFloat)heightForCell;
+/** 动态高度 */
++ (CGFloat)dynamicHeightForCellWithModel:(id)model;
 
 @end

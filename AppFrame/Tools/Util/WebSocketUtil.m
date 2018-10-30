@@ -10,8 +10,7 @@
 #import "GZIPUtil.h"
 #import <AFNetworking/AFNetworkReachabilityManager.h>
 
-//NSString * const HuobiMarketURL = @"wss://hb.bao.top/ws";
-NSString * const HuobiMarketURL = @"ws://47.52.255.59:8089/vct-ws/webSocket";
+NSString * const SocketURL = @"ws://xxx/webSocket";
 
 static NSUInteger const MAX_RECONNECT_COUNT = 4;///< 最大重连次数
 
@@ -120,11 +119,6 @@ static NSUInteger const MAX_RECONNECT_COUNT = 4;///< 最大重连次数
         if (self.delegate && [self.delegate respondsToSelector:@selector(webSocket:didReceiveWebSocketMessage:)]) {
             [self.delegate webSocket:webSocket didReceiveWebSocketMessage:msgDict];
         }
-    }
-    
-
-    if ([msgDict.allKeys containsObject:@"unsubbed"]) {
-        NSLog(@"********  %@", msgDict);
     }
 }
 

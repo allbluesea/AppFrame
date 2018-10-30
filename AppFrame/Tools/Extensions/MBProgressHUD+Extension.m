@@ -54,7 +54,10 @@
 
 + (void)hideHUDForView:(UIView *)view {
     if (view == nil) view = [UIApplication sharedApplication].delegate.window;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [self hideAllHUDsForView:view animated:YES];
+#pragma clang diagnostic pop
 }
 
 

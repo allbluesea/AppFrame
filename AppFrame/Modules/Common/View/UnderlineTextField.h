@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UnderlineTextField : UITextField
+@interface UnderlineTextField : UITextField <UITextFieldDelegate>
 
-@property (nonatomic, strong) UIColor *underlineColor;
+/// 普通状态颜色 默认灰色
+@property (nonatomic, strong) UIColor *normalTintColor;
+/// 高亮状态颜色 默认蓝色
+@property (nonatomic, strong) UIColor *highlightedTintColor;
 
 @end

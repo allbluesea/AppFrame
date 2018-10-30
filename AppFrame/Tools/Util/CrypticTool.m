@@ -1,9 +1,8 @@
 //
 //  EncryptTool.m
-//  XYIOT
 //
 //  Created by stary on 2017/11/8.
-//  Copyright © 2017年 XYWL. All rights reserved.
+//  Copyright © 2017年 Firebrk. All rights reserved.
 //
 
 #import "CrypticTool.h"

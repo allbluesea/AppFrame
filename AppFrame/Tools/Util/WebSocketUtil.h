@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <SocketRocket/SRWebSocket.h>
 
-FOUNDATION_EXTERN NSString * const HuobiMarketURL;///< 火币websocket
+FOUNDATION_EXTERN NSString * const SocketURL;///< websocket
 
 @protocol WebSocketUtilDelegate <NSObject>
 

@@ -5,13 +5,6 @@
 
 #import "NetworkManager.h"
 
-
-/*
- 接口状态码，一般情况 TRUE_RESPONSE_CODE表示成功
- code只是代表接口返回的不同结果，并不一定是请求成功失败。
- */
-static NSInteger const TRUE_RESPONSE_CODE = 1;
-
 /*
  接口返回字段
  */
@@ -26,7 +19,7 @@ static NSString * DATA_KEY = @"data";
 
 + (void)GETWithURLString:(NSString *)URL
               parameters:(NSDictionary *)parameters
-         completionBlock:(void (^)(BOOL, NSInteger, NSString *, id))completionBlock
+         completionBlock:(void (^)(NSInteger, NSString *, id))completionBlock
             failureBlock:(void (^)(NSInteger, NSString *))failureBlock {
     [self GETWithURLString:URL
                HTTPHeaders:nil
@@ -39,7 +32,7 @@ static NSString * DATA_KEY = @"data";
 + (void)GETWithURLString:(NSString *)URL
              HTTPHeaders:(NSDictionary *)HTTPHeaders
               parameters:(NSDictionary *)parameters
-         completionBlock:(void(^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+         completionBlock:(void(^)(NSInteger code, NSString *message, id responseData))completionBlock
             failureBlock:(void(^)(NSInteger code, NSString *errorString))failureBlock {
     [self requestWithMethod:@"GET"
                   URLString:URL
@@ -53,7 +46,7 @@ static NSString * DATA_KEY = @"data";
 
 + (void)POSTWithURLString:(NSString *)URL
                parameters:(NSDictionary *)parameters
-          completionBlock:(void (^)(BOOL, NSInteger, NSString *, id))completionBlock
+          completionBlock:(void (^)(NSInteger, NSString *, id))completionBlock
              failureBlock:(void (^)(NSInteger, NSString *))failureBlock {
     [self POSTWithURLString:URL
                 HTTPHeaders:nil
@@ -65,7 +58,7 @@ static NSString * DATA_KEY = @"data";
 + (void)POSTWithURLString:(NSString *)URL
               HTTPHeaders:(NSDictionary *)HTTPHeaders
                parameters:(NSDictionary *)parameters
-          completionBlock:(void (^)(BOOL, NSInteger, NSString *, id))completionBlock
+          completionBlock:(void (^)(NSInteger, NSString *, id))completionBlock
              failureBlock:(void (^)(NSInteger, NSString *))failureBlock {
     [self requestWithMethod:@"POST"
                   URLString:URL
@@ -83,12 +76,17 @@ static NSString * DATA_KEY = @"data";
                 URLString:(NSString *)URL
               HTTPHeaders:(NSDictionary *)HTTPHeaders
                parameters:(NSDictionary *)parameters
-          completionBlock:(void (^)(BOOL, NSInteger, NSString *, id))completionBlock
+          completionBlock:(void (^)(NSInteger, NSString *, id))completionBlock
              failureBlock:(void (^)(NSInteger, NSString *))failureBlock {
+    
+    
 #if DEBUG_URL_MODE
     
     // print the request url
     NSMutableString *url = [[NSMutableString alloc] initWithString:URL];
+    
+    
+    
     NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:parameters];
     if (dict.allKeys.count > 0) {
         if ([url containsString:@"?"]) {
@@ -111,18 +109,8 @@ static NSString * DATA_KEY = @"data";
     
 #endif
     
-//    if ([parameters.allKeys containsObject:@"memberId"]) {
-//        if ([parameters[@"memberId"] intValue] == -1) {
-//            // 登录失效
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                [self loginInvalidHandler];
-//            });
-//            return;
-//        }
-//    }
-    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer.timeoutInterval = 20.f;
+    manager.requestSerializer.timeoutInterval = 15.0f;
     AFJSONResponseSerializer *serializer = [AFJSONResponseSerializer serializer];
     [serializer setRemovesKeysWithNullValues:YES];
     [manager setResponseSerializer:serializer];
@@ -132,6 +120,13 @@ static NSString * DATA_KEY = @"data";
         for (NSString *field in HTTPHeaders) {
             [manager.requestSerializer setValue:HTTPHeaders[field] forHTTPHeaderField:field];
         }
+    }
+    
+    // 设置Session
+    NSData *cookieData = [USER_DEFAULTS objectForKey:kSession];
+    if ([cookieData length]) {
+        NSHTTPCookie *sessionCookie = [NSKeyedUnarchiver unarchiveObjectWithData:cookieData];
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:sessionCookie];
     }
     
     if ([method isEqualToString:@"GET"]) {
@@ -145,8 +140,6 @@ static NSString * DATA_KEY = @"data";
                  failureBlock(error.code, error.localizedDescription);
                  if (ONLINE == 0) {
                      [MBProgressHUD showMessage:[NSString stringWithFormat:@"%@(%ld)", error.localizedDescription, error.code]];
-                 }else{
-                     [MBProgressHUD showMessage:NSLocalizedString(@"网络连接出问题啦,请稍后重试", nil)];
                  }
              }
          ];
@@ -155,14 +148,13 @@ static NSString * DATA_KEY = @"data";
            parameters:parameters
              progress:nil
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                  
                   [self handleSuccessResponse:responseObject forSuccessBlock:completionBlock failureBlock:failureBlock];
               }
               failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                   failureBlock(error.code, error.localizedDescription);
                   if (ONLINE == 0) {
                       [MBProgressHUD showMessage:[NSString stringWithFormat:@"%@(%ld)", error.localizedDescription, error.code]];
-                  }else{
-                      [MBProgressHUD showMessage:NSLocalizedString(@"网络连接出问题啦,请稍后重试", nil)];
                   }
               }
          ];
@@ -176,7 +168,7 @@ static NSString * DATA_KEY = @"data";
                           field:(NSString *)field
                        fileName:(NSString *)fileName
                        mimeType:(NSString *)mimeType
-                completionBlock:(void (^)(BOOL, NSInteger, NSString *, id))completionBlock
+                completionBlock:(void (^)(NSInteger, NSString *, id))completionBlock
                    failureBlock:(void (^)(NSInteger, NSString *))failureBlock {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -209,7 +201,7 @@ static NSString * DATA_KEY = @"data";
                             fileArray:(NSArray<NSDictionary *> *)fileArr
                                 field:(NSString *)field
                              mimeType:(NSString *)mimeType
-                      completionBlock:(void (^)(BOOL, NSInteger, NSString *, id))completionBlock
+                      completionBlock:(void (^)(NSInteger, NSString *, id))completionBlock
                          failureBlock:(void (^)(NSInteger, NSString *))failureBlock {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     AFJSONResponseSerializer *serializer = [AFJSONResponseSerializer serializer];
@@ -244,11 +236,11 @@ static NSString * DATA_KEY = @"data";
  response handler - can be overriden in subclass if needed
  */
 + (void)handleSuccessResponse:(id)responseObj
-              forSuccessBlock:(void(^)(BOOL, NSInteger, NSString *, id))successBlock
-                 failureBlock:(void (^)(NSInteger, NSString *))failureBlock {
+              forSuccessBlock:(void(^)(NSInteger, NSString *, id))successBlock
+                 failureBlock:(void(^)(NSInteger, NSString *))failureBlock {
     
     NSDictionary *objectDict = (NSDictionary *)responseObj;
-    NSInteger code = [[objectDict objectForKey:CODE_KEY] integerValue];
+    NSInteger code = [self codeFromObject:[objectDict objectForKey:CODE_KEY]];
     
     NSString *msg = nil;
     if ([objectDict.allKeys containsObject:MSG_KEY]) {
@@ -259,8 +251,11 @@ static NSString * DATA_KEY = @"data";
     if ([objectDict.allKeys containsObject:DATA_KEY]) {
         data = [objectDict objectForKey:DATA_KEY];
     }
-    if (code == TRUE_RESPONSE_CODE) {
-        successBlock(YES, code, msg, data);
+    if (code == ResponseStatusCodeSuccess) {
+        successBlock(code, msg, data);
+    } else if (code == ResponseStatusCodeInvalidLoginStatus) {
+        failureBlock(code, msg);
+        [self handleInvalidLoginStatus];
     } else {
         failureBlock(code, msg);
     }
@@ -270,6 +265,28 @@ static NSString * DATA_KEY = @"data";
     AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
     [mgr setReachabilityStatusChangeBlock:block];
     [mgr startMonitoring];
+}
+
++ (NSInteger)codeFromObject:(id)obj {
+    if ([obj isKindOfClass:[NSString class]]) {
+        if ([obj isEqualToString:@"0000"]) {
+            return ResponseStatusCodeSuccess;
+        }
+    }
+    return [obj integerValue];
+}
+
+// 处理登录失效
++ (void)handleInvalidLoginStatus {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIViewController *topVC = [Util topmostViewController];
+        if ([topVC isKindOfClass:NSClassFromString(@"ICELoginViewController")]) {
+            return;
+        }
+        // 跳转登录
+        [SeekAppDelegate() goToLogin];
+    });
+    
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  EGLoginViewController.h
+//  ICELoginViewController.h
 //  AppFrame
 //
 //  Created by icebrk on 2018/8/20.
@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface EGLoginViewController : BaseViewController
+@interface ICELoginViewController : BaseViewController
 
 @end

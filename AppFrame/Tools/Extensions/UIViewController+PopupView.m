@@ -24,7 +24,6 @@ static NSString * const kDismissWhenClick = @"dismissWhenClick";
     if (dismissWhenClick != self.dismissWhenClick) {
         objc_setAssociatedObject(self, &kDismissWhenClick, @(dismissWhenClick), OBJC_ASSOCIATION_ASSIGN);
     }
-    
 }
 
 - (BOOL)dismissWhenClick {
@@ -39,9 +38,9 @@ static NSString * const kDismissWhenClick = @"dismissWhenClick";
     // Generating Start and Stop Positions
     CGSize sourceSize = sourceView.bounds.size;
     CGSize popupSize = popupView.bounds.size;
-    CGRect popupEndRect = CGRectMake((sourceSize.width - popupSize.width) / 2, 
+    CGRect popupEndRect = CGRectMake((sourceSize.width - popupSize.width) / 2,
                                      (sourceSize.height - popupSize.height) / 2,
-                                     popupSize.width, 
+                                     popupSize.width,
                                      popupSize.height);
     
     // Set starting properties
@@ -84,29 +83,29 @@ static NSString * const kDismissWhenClick = @"dismissWhenClick";
     switch (animationType) {
         case PopupViewAnimationSlideBottomTop:
         case PopupViewAnimationSlideBottomBottom:
-            popupStartRect = CGRectMake((sourceSize.width - popupSize.width) / 2, 
-                                        sourceSize.height + popupSize.height, 
-                                        popupSize.width, 
+            popupStartRect = CGRectMake((sourceSize.width - popupSize.width) / 2,
+                                        sourceSize.height + popupSize.height,
+                                        popupSize.width,
                                         popupSize.height);
             
             break;
         case PopupViewAnimationSlideLeftRight:
-            popupStartRect = CGRectMake(-sourceSize.width, 
+            popupStartRect = CGRectMake(-sourceSize.width,
                                         (sourceSize.height - popupSize.height) / 2,
-                                        popupSize.width, 
+                                        popupSize.width,
                                         popupSize.height);
             break;
             
         default:
-            popupStartRect = CGRectMake(sourceSize.width, 
+            popupStartRect = CGRectMake(sourceSize.width,
                                         (sourceSize.height - popupSize.height) / 2,
-                                        popupSize.width, 
+                                        popupSize.width,
                                         popupSize.height);
             break;
-    }        
-    CGRect popupEndRect = CGRectMake((sourceSize.width - popupSize.width) / 2, 
+    }
+    CGRect popupEndRect = CGRectMake((sourceSize.width - popupSize.width) / 2,
                                      (sourceSize.height - popupSize.height),
-                                     popupSize.width, 
+                                     popupSize.width,
                                      popupSize.height);
     // NSLog(@"source y = %f  pop y = %f",sourceSize.height, popupSize.height);
     //  NSLog(@"start y =%f  end y=%f",popupStartRect.origin.y, popupEndRect.origin.y);
@@ -129,27 +128,27 @@ static NSString * const kDismissWhenClick = @"dismissWhenClick";
     CGRect popupEndRect;
     switch (animationType) {
         case PopupViewAnimationSlideBottomTop:
-            popupEndRect = CGRectMake((sourceSize.width - popupSize.width) / 2, 
-                                      -popupSize.height, 
-                                      popupSize.width, 
+            popupEndRect = CGRectMake((sourceSize.width - popupSize.width) / 2,
+                                      -popupSize.height,
+                                      popupSize.width,
                                       popupSize.height);
             break;
         case PopupViewAnimationSlideBottomBottom:
-            popupEndRect = CGRectMake((sourceSize.width - popupSize.width) / 2, 
-                                      sourceSize.height, 
-                                      popupSize.width, 
+            popupEndRect = CGRectMake((sourceSize.width - popupSize.width) / 2,
+                                      sourceSize.height,
+                                      popupSize.width,
                                       popupSize.height);
             break;
         case PopupViewAnimationSlideLeftRight:
-            popupEndRect = CGRectMake(sourceSize.width, 
-                                      popupView.frame.origin.y, 
-                                      popupSize.width, 
+            popupEndRect = CGRectMake(sourceSize.width,
+                                      popupView.frame.origin.y,
+                                      popupSize.width,
                                       popupSize.height);
             break;
         default:
-            popupEndRect = CGRectMake(-popupSize.width, 
-                                      popupView.frame.origin.y, 
-                                      popupSize.width, 
+            popupEndRect = CGRectMake(-popupSize.width,
+                                      popupView.frame.origin.y,
+                                      popupSize.width,
                                       popupSize.height);
             break;
     }
@@ -232,13 +231,13 @@ static NSString * const kDismissWhenClick = @"dismissWhenClick";
             dismissButton.tag = PopupViewAnimationFade;
             [self fadeViewIn:popupView sourceView:sourceView overlayView:overlayView];
             break;
-    }    
+    }
     
 }
 - (void)presentPopupView:(UIView*)popupView animationType:(PopupViewAnimation)animationType dismissWhenClickBackground:(BOOL)dismissWhenClick
 {
     self.dismissWhenClick = dismissWhenClick;
-    UIView *sourceView = [self topmostView];
+    UIView *sourceView = [self keyWindow];
     sourceView.tag = kSourceViewTag;
     popupView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin |UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     popupView.tag = kPopupViewTag;
@@ -282,10 +281,9 @@ static NSString * const kDismissWhenClick = @"dismissWhenClick";
     [sourceView addSubview:overlayView];
     
     if (dismissWhenClick) {
-        [dismissButton addTarget:self action:@selector(doPredissmissPopViewController:) forControlEvents:UIControlEventTouchUpInside];
-    }else{
         [dismissButton addTarget:self action:@selector(didClickBackgound:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
     switch (animationType) {
         case PopupViewAnimationSlideBottomTop:
         case PopupViewAnimationSlideBottomBottom:
@@ -298,7 +296,12 @@ static NSString * const kDismissWhenClick = @"dismissWhenClick";
             dismissButton.tag = PopupViewAnimationFade;
             [self fadeViewIn:popupView sourceView:sourceView overlayView:overlayView];
             break;
-    }    
+    }
+}
+
+
+- (UIWindow *)keyWindow {
+    return [UIApplication sharedApplication].keyWindow;
 }
 
 - (UIView *)topmostView {
@@ -328,19 +331,17 @@ static NSString * const kDismissWhenClick = @"dismissWhenClick";
     return nil;
 }
 
-- (void)doPredissmissPopViewController:(id)sender
-{
-    if (self.dismissWhenClick) {
-        [self dismissPopupViewWithAnimation:sender];
-    }
-}
-
 - (void)dismissPopupView {
     [self dismissPopupViewWithAnimationType:PopupViewAnimationFade completion:nil];
 }
 
+- (void)doPredissmissPopViewController:(id)sender
+{
+    [self dismissPopupViewWithAnimation:sender];
+}
+
 - (void)didClickBackgound:(id)sender{
-    [self dismissPopupView];
+    [self dismissPopupViewWithAnimation:sender];
 }
 
 - (void)dismissPopupViewWithAnimation:(id)sender
@@ -354,7 +355,7 @@ static NSString * const kDismissWhenClick = @"dismissWhenClick";
             case PopupViewAnimationSlideLeftRight:
                 [self dismissPopupViewWithAnimationType:dismissButton.tag completion:^(BOOL finished) {
                     
-                } ];
+                }];
                 break;
             default:
                 [self dismissPopupViewWithAnimationType:PopupViewAnimationFade completion:^(BOOL finished){
@@ -396,7 +397,7 @@ static NSString * const kDismissWhenClick = @"dismissWhenClick";
 }
 - (void)dismissPopupViewWithAnimationType:(PopupViewAnimation)animationType completion:(void (^)(BOOL finished))completion
 {
-    UIView *sourceView = [self topmostView];
+    UIView *sourceView = [self keyWindow];
     UIView *popupView = [sourceView viewWithTag:kPopupViewTag];
     UIView *overlayView = [sourceView viewWithTag:kOverlayViewTag];
     

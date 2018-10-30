@@ -20,7 +20,7 @@
 		1837AEFA212A5F970077C585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1837AEF9212A5F970077C585 /* Assets.xcassets */; };
 		1837AEFD212A5F970077C585 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1837AEFB212A5F970077C585 /* LaunchScreen.storyboard */; };
 		1837AF00212A5F970077C585 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1837AEFF212A5F970077C585 /* main.m */; };
-		1837AF0B212A636E0077C585 /* EGTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1837AF0A212A636E0077C585 /* EGTabBarController.m */; };
+		1837AF0B212A636E0077C585 /* ICETabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1837AF0A212A636E0077C585 /* ICETabBarController.m */; };
 		1837AF40212A73E70077C585 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1837AF19212A73E70077C585 /* NSDate+Additions.m */; };
 		1837AF41212A73E70077C585 /* NSDictionary+ValuePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 1837AF1B212A73E70077C585 /* NSDictionary+ValuePath.m */; };
 		1837AF42212A73E70077C585 /* UIButton+PointRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 1837AF1D212A73E70077C585 /* UIButton+PointRect.m */; };
@@ -62,9 +62,20 @@
 		18F445D5212BB5DE004A1219 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F445CD212BB5DE004A1219 /* SDCycleScrollView.m */; };
 		18F445D6212BB5DE004A1219 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F445CF212BB5DE004A1219 /* UIView+SDExtension.m */; };
 		18F445D9212BBCEB004A1219 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F445D8212BBCEB004A1219 /* BaseTableViewCell.m */; };
-		18F445DD212BBDE4004A1219 /* EGLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F445DC212BBDE4004A1219 /* EGLoginViewController.m */; };
-		18F445E0212BBDF6004A1219 /* EGRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F445DF212BBDF6004A1219 /* EGRegisterViewController.m */; };
+		18F445DD212BBDE4004A1219 /* ICELoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F445DC212BBDE4004A1219 /* ICELoginViewController.m */; };
+		18F445E0212BBDF6004A1219 /* ICERegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F445DF212BBDF6004A1219 /* ICERegisterViewController.m */; };
 		18F445E3212C168E004A1219 /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F445E2212C168E004A1219 /* BaseWebViewController.m */; };
+		798E0CC82188028A00D6BC8E /* CommonShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E0CC52188028900D6BC8E /* CommonShareView.m */; };
+		798E0CC92188028A00D6BC8E /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E0CC72188028900D6BC8E /* CommentView.m */; };
+		798E0CCE2188029800D6BC8E /* IconLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E0CCA2188029700D6BC8E /* IconLabelCell.m */; };
+		798E0CCF2188029800D6BC8E /* LabelOnlyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E0CCB2188029700D6BC8E /* LabelOnlyCell.m */; };
+		798E0CD4218802AA00D6BC8E /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E0CD1218802AA00D6BC8E /* NavigationView.m */; };
+		798E0CD5218802AA00D6BC8E /* WebTransitionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E0CD2218802AA00D6BC8E /* WebTransitionView.m */; };
+		798E0CD8218803D900D6BC8E /* GlobalUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E0CD6218803D900D6BC8E /* GlobalUser.m */; };
+		798E0CDE2188043300D6BC8E /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E0CDC2188043300D6BC8E /* CoreDataManager.m */; };
+		798E0CDF2188043300D6BC8E /* CoreDataDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E0CDD2188043300D6BC8E /* CoreDataDAO.m */; };
+		798E0CE5218826AD00D6BC8E /* ICEForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E0CE4218826AD00D6BC8E /* ICEForgetViewController.m */; };
+		798E0CE8218826C200D6BC8E /* ICESetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E0CE7218826C200D6BC8E /* ICESetPasswordViewController.m */; };
 		FBBFB9C64A3BCE196C70956D /* libPods-AppFrame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8E734C2433673363F45575C /* libPods-AppFrame.a */; };
 /* End PBXBuildFile section */
 
@@ -87,8 +98,8 @@
 		1837AEFC212A5F970077C585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1837AEFE212A5F970077C585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1837AEFF212A5F970077C585 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1837AF09212A636E0077C585 /* EGTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EGTabBarController.h; sourceTree = "<group>"; };
-		1837AF0A212A636E0077C585 /* EGTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EGTabBarController.m; sourceTree = "<group>"; };
+		1837AF09212A636E0077C585 /* ICETabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICETabBarController.h; sourceTree = "<group>"; };
+		1837AF0A212A636E0077C585 /* ICETabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICETabBarController.m; sourceTree = "<group>"; };
 		1837AF10212A6D7D0077C585 /* DefineList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefineList.h; sourceTree = "<group>"; };
 		1837AF11212A6DD40077C585 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		1837AF13212A71640077C585 /* APIList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIList.h; sourceTree = "<group>"; };
@@ -177,12 +188,34 @@
 		18F445CF212BB5DE004A1219 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		18F445D7212BBCEB004A1219 /* BaseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		18F445D8212BBCEB004A1219 /* BaseTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
-		18F445DB212BBDE4004A1219 /* EGLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EGLoginViewController.h; sourceTree = "<group>"; };
-		18F445DC212BBDE4004A1219 /* EGLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EGLoginViewController.m; sourceTree = "<group>"; };
-		18F445DE212BBDF6004A1219 /* EGRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EGRegisterViewController.h; sourceTree = "<group>"; };
-		18F445DF212BBDF6004A1219 /* EGRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EGRegisterViewController.m; sourceTree = "<group>"; };
+		18F445DB212BBDE4004A1219 /* ICELoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICELoginViewController.h; sourceTree = "<group>"; };
+		18F445DC212BBDE4004A1219 /* ICELoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICELoginViewController.m; sourceTree = "<group>"; };
+		18F445DE212BBDF6004A1219 /* ICERegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICERegisterViewController.h; sourceTree = "<group>"; };
+		18F445DF212BBDF6004A1219 /* ICERegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICERegisterViewController.m; sourceTree = "<group>"; };
 		18F445E1212C168E004A1219 /* BaseWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseWebViewController.h; sourceTree = "<group>"; };
 		18F445E2212C168E004A1219 /* BaseWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
+		798E0CC42188028900D6BC8E /* CommonShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonShareView.h; sourceTree = "<group>"; };
+		798E0CC52188028900D6BC8E /* CommonShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonShareView.m; sourceTree = "<group>"; };
+		798E0CC62188028900D6BC8E /* CommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentView.h; sourceTree = "<group>"; };
+		798E0CC72188028900D6BC8E /* CommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentView.m; sourceTree = "<group>"; };
+		798E0CCA2188029700D6BC8E /* IconLabelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconLabelCell.m; sourceTree = "<group>"; };
+		798E0CCB2188029700D6BC8E /* LabelOnlyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelOnlyCell.m; sourceTree = "<group>"; };
+		798E0CCC2188029700D6BC8E /* IconLabelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconLabelCell.h; sourceTree = "<group>"; };
+		798E0CCD2188029700D6BC8E /* LabelOnlyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelOnlyCell.h; sourceTree = "<group>"; };
+		798E0CD0218802A900D6BC8E /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
+		798E0CD1218802AA00D6BC8E /* NavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationView.m; sourceTree = "<group>"; };
+		798E0CD2218802AA00D6BC8E /* WebTransitionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebTransitionView.m; sourceTree = "<group>"; };
+		798E0CD3218802AA00D6BC8E /* WebTransitionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebTransitionView.h; sourceTree = "<group>"; };
+		798E0CD6218803D900D6BC8E /* GlobalUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalUser.m; sourceTree = "<group>"; };
+		798E0CD7218803D900D6BC8E /* GlobalUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalUser.h; sourceTree = "<group>"; };
+		798E0CDA2188043300D6BC8E /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
+		798E0CDB2188043300D6BC8E /* CoreDataDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataDAO.h; sourceTree = "<group>"; };
+		798E0CDC2188043300D6BC8E /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
+		798E0CDD2188043300D6BC8E /* CoreDataDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataDAO.m; sourceTree = "<group>"; };
+		798E0CE3218826AD00D6BC8E /* ICEForgetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICEForgetViewController.h; sourceTree = "<group>"; };
+		798E0CE4218826AD00D6BC8E /* ICEForgetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICEForgetViewController.m; sourceTree = "<group>"; };
+		798E0CE6218826C200D6BC8E /* ICESetPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICESetPasswordViewController.h; sourceTree = "<group>"; };
+		798E0CE7218826C200D6BC8E /* ICESetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICESetPasswordViewController.m; sourceTree = "<group>"; };
 		8689E7495F9351749770F00F /* Pods-AppFrame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppFrame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppFrame/Pods-AppFrame.debug.xcconfig"; sourceTree = "<group>"; };
 		B30E7821517A96CC93B31F9A /* Pods-AppFrame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppFrame.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppFrame/Pods-AppFrame.release.xcconfig"; sourceTree = "<group>"; };
 		C8E734C2433673363F45575C /* libPods-AppFrame.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppFrame.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -259,8 +292,8 @@
 		1837AF0D212A6BAE0077C585 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				1837AF09212A636E0077C585 /* EGTabBarController.h */,
-				1837AF0A212A636E0077C585 /* EGTabBarController.m */,
+				1837AF09212A636E0077C585 /* ICETabBarController.h */,
+				1837AF0A212A636E0077C585 /* ICETabBarController.m */,
 				184B46E6212F98D200F9871B /* Common */,
 				18F445DA212BBDBB004A1219 /* LoginAndRegister */,
 				1837AF75212AB5220077C585 /* Info */,
@@ -318,6 +351,7 @@
 			children = (
 				184B46EA212F9A2900F9871B /* Util */,
 				18F445B8212B9CA9004A1219 /* NetworkManager */,
+				798E0CD92188043300D6BC8E /* CoreData */,
 				1837AF54212A94C10077C585 /* SAMKeychain */,
 				1837AF17212A73E70077C585 /* Extensions */,
 			);
@@ -526,8 +560,20 @@
 			children = (
 				182B2F10212D4B3C000CCB24 /* ADPageView.h */,
 				182B2F11212D4B3C000CCB24 /* ADPageView.m */,
+				798E0CD0218802A900D6BC8E /* NavigationView.h */,
+				798E0CD1218802AA00D6BC8E /* NavigationView.m */,
+				798E0CD3218802AA00D6BC8E /* WebTransitionView.h */,
+				798E0CD2218802AA00D6BC8E /* WebTransitionView.m */,
+				798E0CCC2188029700D6BC8E /* IconLabelCell.h */,
+				798E0CCA2188029700D6BC8E /* IconLabelCell.m */,
+				798E0CCD2188029700D6BC8E /* LabelOnlyCell.h */,
+				798E0CCB2188029700D6BC8E /* LabelOnlyCell.m */,
 				1853FBD5213005FE00E8E567 /* UnderlineTextField.h */,
 				1853FBD6213005FE00E8E567 /* UnderlineTextField.m */,
+				798E0CC62188028900D6BC8E /* CommentView.h */,
+				798E0CC72188028900D6BC8E /* CommentView.m */,
+				798E0CC42188028900D6BC8E /* CommonShareView.h */,
+				798E0CC52188028900D6BC8E /* CommonShareView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -544,6 +590,8 @@
 		184B46E9212F98F900F9871B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				798E0CD7218803D900D6BC8E /* GlobalUser.h */,
+				798E0CD6218803D900D6BC8E /* GlobalUser.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -618,12 +666,27 @@
 		18F445DA212BBDBB004A1219 /* LoginAndRegister */ = {
 			isa = PBXGroup;
 			children = (
-				18F445DB212BBDE4004A1219 /* EGLoginViewController.h */,
-				18F445DC212BBDE4004A1219 /* EGLoginViewController.m */,
-				18F445DE212BBDF6004A1219 /* EGRegisterViewController.h */,
-				18F445DF212BBDF6004A1219 /* EGRegisterViewController.m */,
+				18F445DB212BBDE4004A1219 /* ICELoginViewController.h */,
+				18F445DC212BBDE4004A1219 /* ICELoginViewController.m */,
+				18F445DE212BBDF6004A1219 /* ICERegisterViewController.h */,
+				18F445DF212BBDF6004A1219 /* ICERegisterViewController.m */,
+				798E0CE3218826AD00D6BC8E /* ICEForgetViewController.h */,
+				798E0CE4218826AD00D6BC8E /* ICEForgetViewController.m */,
+				798E0CE6218826C200D6BC8E /* ICESetPasswordViewController.h */,
+				798E0CE7218826C200D6BC8E /* ICESetPasswordViewController.m */,
 			);
 			path = LoginAndRegister;
+			sourceTree = "<group>";
+		};
+		798E0CD92188043300D6BC8E /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				798E0CDA2188043300D6BC8E /* CoreDataManager.h */,
+				798E0CDC2188043300D6BC8E /* CoreDataManager.m */,
+				798E0CDB2188043300D6BC8E /* CoreDataDAO.h */,
+				798E0CDD2188043300D6BC8E /* CoreDataDAO.m */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		8B3BC137601847E3C93D3D99 /* Pods */ = {
@@ -655,6 +718,7 @@
 				1837AEEA212A5F970077C585 /* Frameworks */,
 				1837AEEB212A5F970077C585 /* Resources */,
 				DE647B5C2A153E6AE4F3F8F1 /* [CP] Copy Pods Resources */,
+				FF19E2B67F9AFE5D8924A28E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -755,6 +819,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppFrame/Pods-AppFrame-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FF19E2B67F9AFE5D8924A28E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppFrame/Pods-AppFrame-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -762,16 +841,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				798E0CDE2188043300D6BC8E /* CoreDataManager.m in Sources */,
 				1837AF64212A9AAE0077C585 /* RSA.m in Sources */,
 				184B46EF212F9A3E00F9871B /* WebSocketUtil.m in Sources */,
 				18F445D2212BB5DE004A1219 /* TADotView.m in Sources */,
+				798E0CCF2188029800D6BC8E /* LabelOnlyCell.m in Sources */,
+				798E0CC82188028A00D6BC8E /* CommonShareView.m in Sources */,
 				1837AF87212ABB400077C585 /* ViewController.m in Sources */,
 				1853FBD7213005FE00E8E567 /* UnderlineTextField.m in Sources */,
 				1837AF45212A73E70077C585 /* UIDevice+Extension.m in Sources */,
 				18F445D5212BB5DE004A1219 /* SDCycleScrollView.m in Sources */,
+				798E0CD5218802AA00D6BC8E /* WebTransitionView.m in Sources */,
+				798E0CE5218826AD00D6BC8E /* ICEForgetViewController.m in Sources */,
 				1837AF40212A73E70077C585 /* NSDate+Additions.m in Sources */,
-				18F445E0212BBDF6004A1219 /* EGRegisterViewController.m in Sources */,
-				18F445DD212BBDE4004A1219 /* EGLoginViewController.m in Sources */,
+				18F445E0212BBDF6004A1219 /* ICERegisterViewController.m in Sources */,
+				18F445DD212BBDE4004A1219 /* ICELoginViewController.m in Sources */,
 				1837AF44212A73E70077C585 /* UIColor+Additions.m in Sources */,
 				1837AF74212AAABC0077C585 /* BaseNavigationController.m in Sources */,
 				1837AF7E212AB68C0077C585 /* EGExpressViewController.m in Sources */,
@@ -783,9 +867,13 @@
 				1837AF53212A73E70077C585 /* UIWebView+TS_JavaScriptContext.m in Sources */,
 				182B2F0F212D420B000CCB24 /* GuideViewController.m in Sources */,
 				1837AF48212A73E70077C585 /* UIImage+AnimatedGIF.m in Sources */,
+				798E0CC92188028A00D6BC8E /* CommentView.m in Sources */,
+				798E0CD4218802AA00D6BC8E /* NavigationView.m in Sources */,
+				798E0CCE2188029800D6BC8E /* IconLabelCell.m in Sources */,
 				18F445E3212C168E004A1219 /* BaseWebViewController.m in Sources */,
 				1837AF96212AE29C0077C585 /* MBProgressHUD+Extension.m in Sources */,
 				1837AF84212AB6E90077C585 /* EGMeViewController.m in Sources */,
+				798E0CE8218826C200D6BC8E /* ICESetPasswordViewController.m in Sources */,
 				1837AF7B212AB6140077C585 /* EGInfoViewController.m in Sources */,
 				1837AF50212A73E70077C585 /* UIType+Extension.m in Sources */,
 				1837AF42212A73E70077C585 /* UIButton+PointRect.m in Sources */,
@@ -796,6 +884,7 @@
 				1837AF49212A73E70077C585 /* UIImage+Color.m in Sources */,
 				1837AF5A212A94C10077C585 /* SAMKeychainQuery.m in Sources */,
 				1837AF47212A73E70077C585 /* UIImage+Alpha.m in Sources */,
+				798E0CDF2188043300D6BC8E /* CoreDataDAO.m in Sources */,
 				1837AF60212A99DF0077C585 /* CrypticTool.m in Sources */,
 				1837AF4F212A73E70077C585 /* UIScrollView+EmptyDataSet.m in Sources */,
 				18F445BE212B9F59004A1219 /* NetworkManager+Extension.m in Sources */,
@@ -803,7 +892,7 @@
 				1837AF5F212A99DF0077C585 /* Util.m in Sources */,
 				1837AEF2212A5F970077C585 /* AppDelegate.m in Sources */,
 				182B2F12212D4B3C000CCB24 /* ADPageView.m in Sources */,
-				1837AF0B212A636E0077C585 /* EGTabBarController.m in Sources */,
+				1837AF0B212A636E0077C585 /* ICETabBarController.m in Sources */,
 				1837AF4C212A73E70077C585 /* UIImage+Resize.m in Sources */,
 				1837AF41212A73E70077C585 /* NSDictionary+ValuePath.m in Sources */,
 				18F445D9212BBCEB004A1219 /* BaseTableViewCell.m in Sources */,
@@ -811,6 +900,7 @@
 				184B46F0212F9A3E00F9871B /* GZIPUtil.m in Sources */,
 				18F445B7212B9771004A1219 /* AppDelegate+Service.m in Sources */,
 				1837AF6B212AA85F0077C585 /* BaseViewController.m in Sources */,
+				798E0CD8218803D900D6BC8E /* GlobalUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,8 +17,9 @@
 #define STATUS_BAR_HEIGHT (IPHONE_X ? 44.f : 20.f) // 状态栏高度
 #define NAVBAR_HEIGHT 44.f // 导航栏高度
 #define NAV_STATUS_HEIGHT (STATUS_BAR_HEIGHT + NAVBAR_HEIGHT) // 导航总高度
-#define TABBAR_HEIGHT (IPHONE_X ? 83.f : 49.f) // tabbar高度
-#define MARGIN 12.f // 边距
+#define MARGIN 15.f // 边距
+#define TABBAR_HEIGHT (IPHONE_X ? 83.f : 49.f)//tabbar的高
+#define TABBAR_BOTTOM_INSET (IPHONE_X ? (TABBAR_HEIGHT - 49.f) : 0.f)//tabbar底部间隙（iPhoneX以上机型适用）
 #define WHITESPACE_HEIGHT 10.f // 空白间距
 #define NAVBAR_BTN_LENGTH 24.f // 导航按钮宽高
 #define SEPARATOR_INSET UIEdgeInsetsMake(0, MARGIN, 0, MARGIN) // 分割线边距
@@ -48,6 +49,6 @@
 
 // MARK: ----- Device -----
 
-#define IPHONE_X [[UIDevice deviceType] isEqualToString:@"iPhone X"] // 是否为iPhone X
+#define IPHONE_X [UIDevice isIPhoneXOrLater] // 是否为iPhone X
 
 #endif /* Style_h */

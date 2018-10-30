@@ -137,26 +137,54 @@
     self.navigationController.navigationBar.barTintColor = color;
 }
 
+- (void)setnavigationBarTitleStyleWithFont:(UIFont *)font color:(UIColor *)color{
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSFontAttributeName:font,
+       NSForegroundColorAttributeName:color}];
+}
+
 - (void)setStatusBarStyle:(UIStatusBarStyle)statusBarStyle {
     [[UIApplication sharedApplication] setStatusBarStyle:statusBarStyle];
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
+- (UIButton *)commonButton {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.backgroundColor = THEME_COLOR;
+    btn.titleLabel.font = FONT(15);
+    btn.layer.cornerRadius = 6.f;
+    btn.layer.masksToBounds = YES;
+    return btn;
+}
+
 - (void)showMessage:(NSString *)msg {
+    if (![msg isNotEmpty]) {
+        return;
+    }
     [MBProgressHUD hideHUDForView:self.view];
     [MBProgressHUD showMessage:msg toView:self.view];
 }
 
 - (void)back {
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else if (self.presentedViewController || self.presentingViewController) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+- (void)dismiss {
     if (self.presentedViewController || self.presentingViewController) {
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.navigationController) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
 - (void)goToLogin {
-    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:[NSClassFromString(@"EGLoginViewController") new]];
+    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:[NSClassFromString(@"ICELoginViewController") new]];
     [nav setClearBackground];
     [self presentViewController:nav animated:YES completion:nil];;
 }

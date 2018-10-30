@@ -67,7 +67,15 @@ FOUNDATION_EXTERN NSString * const DefaultHeaderIdentifier;
  @param arr 数据源
  @param modelName 类名
  */
-- (void)successHandler:(NSArray *)arr modelClass:(NSString *)modelName;
+- (void)successHandler:(NSArray *)arr modelName:(NSString *)modelName;
+
+/**
+ 成功handler
+ 
+ @param arr 数据源
+ @param modelClass 类
+ */
+- (void)successHandler:(NSArray *)arr modelClass:(Class)modelClass;
 
 /**
  失败handler
@@ -90,7 +98,15 @@ FOUNDATION_EXTERN NSString * const DefaultHeaderIdentifier;
  @param arr 缓存数据
  @param modelName 模型
  */
-- (void)loadCaches:(NSArray *)arr withModelClass:(NSString *)modelName;
+- (void)loadCaches:(NSArray *)arr withModelName:(NSString *)modelName;
+
+/**
+ 加载缓存数据
+ 
+ @param arr 缓存数据
+ @param modelClass 类
+ */
+- (void)loadCaches:(NSArray *)arr withModelClass:(Class)modelClass;
 
 /**
  开始刷新 （调用下拉刷新方法）

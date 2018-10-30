@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EGTabBarController.h"
+#import "ICETabBarController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, strong) EGTabBarController *tabBarController;
+@property (nonatomic, strong) ICETabBarController *tabBarController;
 
 @end
 

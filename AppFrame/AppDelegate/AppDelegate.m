@@ -21,9 +21,9 @@
 //    NSLog(@"sandbox --- %@", NSHomeDirectory());
     
     [self configUI];
+    [self configUserInfo];
     [self configShareInfo];
     [self configPushInfoWithOption:launchOptions];
-    
     
     [self goToMain];
     [self showAD];

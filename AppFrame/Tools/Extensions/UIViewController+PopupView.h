@@ -4,13 +4,12 @@
 
 #import <UIKit/UIKit.h>
 
-
 typedef NS_ENUM(NSUInteger, PopupViewAnimation) {
+    PopupViewAnimationFade = 0,
     PopupViewAnimationSlideBottomTop,
     PopupViewAnimationSlideRightLeft,
     PopupViewAnimationSlideLeftRight,
     PopupViewAnimationSlideBottomBottom,
-    PopupViewAnimationFade
 };
 
 @interface UIViewController (PopupView)

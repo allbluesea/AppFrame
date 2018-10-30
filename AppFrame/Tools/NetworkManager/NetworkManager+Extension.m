@@ -8,6 +8,10 @@
 
 #import "NetworkManager+Extension.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
+
+
 static NSString * const SIGN_KEY = @"xxxxxx";
 
 @implementation NetworkManager (Extension)
@@ -19,7 +23,7 @@ static NSString * const SIGN_KEY = @"xxxxxx";
  */
 static NSDictionary *HTTPHeaders(NSDictionary *parms) {
     NSString *sign = signedParms(parms);
-    NSString *userAgent = [NSString stringWithFormat:@"iOS/%@/%@/%@/%@", [UIDevice deviceType], [UIDevice systemVersion], [UIDevice UUID], [UIDevice appVersion]];
+    NSString *userAgent = [NSString stringWithFormat:@"iOS/%@/%@/%@/%@", [UIDevice deviceTypeString], [UIDevice systemVersion], [UIDevice UUID], [UIDevice appVersion]];
     NSDictionary *header = sign ? @{@"sign": sign, @"User-Agent": userAgent,@"XX-Device-Type": @1004} : nil;
     return header;
 }
@@ -51,12 +55,10 @@ static NSString *signedParms(NSDictionary *params) {
 
 + (void)GETWithAPIName:(NSString *)name
             parameters:(NSDictionary *)parameters
-       completionBlock:(void (^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+       completionBlock:(void (^)(NSInteger code, NSString *message, id responseData))completionBlock
           failureBlock:(void (^)(NSInteger code, NSString *errorString))failureBlock {
     NSString *absURL = [NSString stringWithFormat:@"%@%@", HOST_URL, name];
     // TODO: 配置headers
-    
-
     [self GETWithURLString:absURL
                HTTPHeaders:nil
                 parameters:parameters
@@ -66,9 +68,10 @@ static NSString *signedParms(NSDictionary *params) {
 
 + (void)POSTWithAPIName:(NSString *)name
              parameters:(NSDictionary *)parameters
-        completionBlock:(void (^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+        completionBlock:(void (^)(NSInteger code, NSString *message, id responseData))completionBlock
            failureBlock:(void (^)(NSInteger code, NSString *errorString))failureBlock {
     NSString *absURL = [NSString stringWithFormat:@"%@%@", HOST_URL, name];
+    
     // TODO: 配置headers
     
     [self POSTWithURLString:absURL
@@ -78,7 +81,7 @@ static NSString *signedParms(NSDictionary *params) {
                failureBlock:failureBlock];
 }
 
-
-
-
 @end
+
+#pragma clang diagnostic pop
+

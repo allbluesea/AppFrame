@@ -13,6 +13,7 @@
 - (void)updateData:(id)model {}
 
 + (CGFloat)heightForCell {return 100.f;}
++ (CGFloat)dynamicHeightForCellWithModel:(id)model {return 100.f;}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

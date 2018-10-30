@@ -7,13 +7,14 @@
 //
 
 #import "AppDelegate+Service.h"
-#import "EGLoginViewController.h"
+#import "ICELoginViewController.h"
 #import "GuideViewController.h"
 #import "ADPageView.h"
 #import "BaseWebViewController.h"
 
 @implementation AppDelegate (Service)
 
+// MARK: Config
 
 - (void)configUI {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -21,6 +22,10 @@
     if (@available(iOS 11.0, *)){
         [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
+}
+
+- (void)configUserInfo {
+//    [GlobalUser config];
 }
 
 - (void)configShareInfo {
@@ -35,8 +40,8 @@
     if (@available(iOS 9.0, *)) {
         if (self.window.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
             NSArray *arr = @[
-                             @{@"iconName": @"common_touch_door", @"type": @"type1", @"title": @"自助开门"},
-                             @{@"iconName": @"common_touch_visitor", @"type": @"type2", @"title": @"访客预约"}];
+                             @{@"iconName": @"common_touch_door", @"type": @"type1", @"title": @"快捷1"},
+                             @{@"iconName": @"common_touch_visitor", @"type": @"type2", @"title": @"快捷2"}];
             NSMutableArray *items = [NSMutableArray arrayWithCapacity:arr.count];
             for (int i = 0; i < arr.count; i++) {
                 UIApplicationShortcutIcon *icon = [UIApplicationShortcutIcon iconWithTemplateImageName:[arr[i] objectForKey:@"iconName"]];
@@ -53,11 +58,11 @@
 // MARK: GOTO
 
 - (void)goToLogin {
-    self.window.rootViewController = [EGLoginViewController new];
+    self.window.rootViewController = [ICELoginViewController new];
 }
 
 - (void)goToMain {
-    self.tabBarController = [EGTabBarController new];
+    self.tabBarController = [ICETabBarController new];
     self.window.rootViewController = self.tabBarController;
 }
 
@@ -83,7 +88,7 @@
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     UIViewController *rootVC = self.window.rootViewController;
-    if ([rootVC isKindOfClass:[EGTabBarController class]]) {
+    if ([rootVC isKindOfClass:[ICETabBarController class]]) {
         UINavigationController *nav = (UINavigationController *)self.tabBarController.selectedViewController;
         if ([shortcutItem.type isEqualToString:@"type1"]) {
             UIViewController *vc = [NSClassFromString(@"xxx") new];
@@ -99,10 +104,10 @@
 }
 #endif
 
+// MARK: NetworkStatus
 
 - (void)monitorNetworkStatus {
     [NetworkManager monitorNetworkStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        
         
         switch (status) {
             case AFNetworkReachabilityStatusUnknown:
@@ -146,11 +151,6 @@
         }
     }];
 }
-
-
-
-
-
 
 
 

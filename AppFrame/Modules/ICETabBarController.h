@@ -1,5 +1,5 @@
 //
-//  EGTabBarController.h
+//  ICETabBarController.h
 //  AppFrame
 //
 //  Created by icebrk on 2018/8/20.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EGTabBarController : UITabBarController
+@interface ICETabBarController : UITabBarController
 
 @end

@@ -12,12 +12,12 @@
 
 + (void)GETWithAPIName:(NSString *)name
             parameters:(NSDictionary *)parameters
-       completionBlock:(void (^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+       completionBlock:(void (^)(NSInteger code, NSString *message, id responseData))completionBlock
           failureBlock:(void (^)(NSInteger code, NSString *errorString))failureBlock;
 
 + (void)POSTWithAPIName:(NSString *)name
              parameters:(NSDictionary *)parameters
-        completionBlock:(void (^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+        completionBlock:(void (^)(NSInteger code, NSString *message, id responseData))completionBlock
            failureBlock:(void (^)(NSInteger code, NSString *errorString))failureBlock;
 
 @end

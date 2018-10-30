@@ -9,7 +9,7 @@
 #import "BaseNavigationController.h"
 #import "BaseViewController.h"
 
-@interface BaseNavigationController () <UINavigationControllerDelegate>
+@interface BaseNavigationController () <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
 @end
 
@@ -17,12 +17,29 @@
 
 // 初始化
 + (void)initialize {
-    
+    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.delegate = self;
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.interactivePopGestureRecognizer.delegate = self;
+    }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    // 判断是否是侧滑相关的手势
+    if (gestureRecognizer == self.interactivePopGestureRecognizer) {
+        // 如果当前展示的控制器是根控制器就不让其响应
+        if (self.viewControllers.count < 2 ||
+            self.visibleViewController == self.viewControllers.firstObject) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 - (void)setClearBackground {
@@ -38,10 +55,7 @@
 // MARK: UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if ([viewController isKindOfClass:NSClassFromString(@"BaseViewController")]) {
-        BaseViewController *vc = (BaseViewController *)viewController;
-        [navigationController setNavigationBarHidden:vc.isNavBarHidden animated:YES];
-    }
+    
 }
 
 /*

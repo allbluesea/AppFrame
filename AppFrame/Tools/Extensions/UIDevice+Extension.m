@@ -1,9 +1,8 @@
 //
 //  UIDevice+Extension.m
-//  XYIOT
 //
 //  Created by stary on 2017/10/28.
-//  Copyright © 2017年 XYWL. All rights reserved.
+//  Copyright © 2017年 Firebrk. All rights reserved.
 //
 
 #import "UIDevice+Extension.h"
@@ -31,8 +30,8 @@ static NSString * const kUUID = @"com.icebrk.uuid";
         CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
         CFStringRef uuidStr = CFUUIDCreateString(kCFAllocatorDefault, uuidRef);
         UUID = CFBridgingRelease(CFStringCreateCopy(kCFAllocatorDefault, uuidStr));
-
-         [SAMKeychain setPassword:UUID forService:HOST account:kUUID];
+        
+        [SAMKeychain setPassword:UUID forService:HOST account:kUUID];
         
         CFRelease(uuidRef);
         CFRelease(uuidStr);
@@ -41,7 +40,7 @@ static NSString * const kUUID = @"com.icebrk.uuid";
     return UUID;
 }
 
-+ (NSString *)deviceType {
++ (NSString *)deviceTypeString {
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString *platform = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
@@ -103,6 +102,14 @@ static NSString * const kUUID = @"com.icebrk.uuid";
     if([platform isEqualToString:@"iPhone10,3"]) return @"iPhone X";
     
     if([platform isEqualToString:@"iPhone10,6"]) return @"iPhone X";
+    
+    if([platform isEqualToString:@"iPhone11,2"]) return @"iPhone XS";
+    
+    if([platform isEqualToString:@"iPhone11,4"]) return @"iPhone XS Max";
+    
+    if([platform isEqualToString:@"iPhone11,6"]) return @"iPhone XS Max";
+    
+    if([platform isEqualToString:@"iPhone11,8"]) return @"iPhone XR";
     
     
     // iPod
@@ -181,6 +188,24 @@ static NSString * const kUUID = @"com.icebrk.uuid";
     
     
     return platform;
+}
+
++ (BOOL)isIPhoneXOrLater {
+    BOOL ret = NO;
+    /// 先判断设备是否是iPhone/iPod
+    if (UIDevice.currentDevice.userInterfaceIdiom != UIUserInterfaceIdiomPhone) {
+        return ret;
+    }
+    
+    if (@available(iOS 11.0, *)) {
+        /// 利用safeAreaInsets来判断是否是iPhone X。
+        UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+        if (!UIEdgeInsetsEqualToEdgeInsets(window.safeAreaInsets, UIEdgeInsetsZero) ) {
+            ret = YES;
+        }
+    }
+    
+    return ret;
 }
 
 + (BOOL)isJailbroken {

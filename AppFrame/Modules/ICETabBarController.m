@@ -1,12 +1,12 @@
 //
-//  EGTabBarController.m
+//  ICETabBarController.m
 //  AppFrame
 //
 //  Created by icebrk on 2018/8/20.
 //  Copyright © 2018年 Firebrk. All rights reserved.
 //
 
-#import "EGTabBarController.h"
+#import "ICETabBarController.h"
 #import "BaseNavigationController.h"
 
 static NSString * const kClass = @"className";
@@ -14,27 +14,23 @@ static NSString * const kTitle = @"title";
 static NSString * const kImg = @"imgName";
 static NSString * const kSelectedImg = @"selectedImgName";
 
-@interface EGTabBarController () <UITabBarControllerDelegate>
+@interface ICETabBarController () <UITabBarControllerDelegate>
 
 @end
 
-@implementation EGTabBarController
+@implementation ICETabBarController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     NSArray *itemsArray = @[@{kClass  : @"EGInfoViewController",
-                              kTitle  : @"资讯",
+                              kTitle  : @"首页",
                               kImg    : @"tabbar_info_normal",
                               kSelectedImg : @"tabbar_info_selected"},
                             @{kClass  : @"EGExpressViewController",
-                              kTitle  : @"快讯",
+                              kTitle  : @"资讯",
                               kImg    : @"tabbar_express_normal",
                               kSelectedImg : @"tabbar_express_selected"},
-                            @{kClass  : @"EGMarketViewController",
-                              kTitle  : @"行情",
-                              kImg    : @"tabbar_market_normal",
-                              kSelectedImg : @"tabbar_market_selected"},
                             @{kClass  : @"EGMeViewController",
                               kTitle  : @"我的",
                               kImg    : @"tabbar_me_normal",

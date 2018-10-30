@@ -6,6 +6,12 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking.h>
 
+// 接口状态码，一般情况 TRUE_RESPONSE_CODE表示成功 code只是代表接口返回的不同结果，并不一定是请求成功失败。
+typedef NS_ENUM(NSInteger, ResponseStatusCode) {
+    ResponseStatusCodeSuccess = 0, ///< 成功
+    ResponseStatusCodeInvalidLoginStatus = 1404 ///< 登录失效
+};
+
 // 上传文件参数
 static NSString * const kUploadField = @"uploadfile";
 static NSString * const kMutableUploadField = @"uploadfile[]";
@@ -14,6 +20,7 @@ static NSString * const kMutableUploadField = @"uploadfile[]";
 static NSString * const kMimeTypeImagePNG = @"image/png";
 static NSString * const kMimeTypeImageJPX = @"image/jpx";
 static NSString * const kMimeTypeAudioAMR = @"audio/amr";
+
 
 @interface NetworkManager : NSObject
 
@@ -30,13 +37,13 @@ static NSString * const kMimeTypeAudioAMR = @"audio/amr";
  */
 + (void)GETWithURLString:(NSString *)URL
               parameters:(NSDictionary *)parameters
-         completionBlock:(void(^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+         completionBlock:(void(^)(NSInteger code, NSString *message, id responseData))completionBlock
             failureBlock:(void(^)(NSInteger code, NSString *errorString))failureBlock;
 
 
 /**
  GET网络请求(请求头配置)
-
+ 
  @param URL URL
  @param HTTPHeaders 请求头
  @param parameters 请求参数
@@ -46,7 +53,7 @@ static NSString * const kMimeTypeAudioAMR = @"audio/amr";
 + (void)GETWithURLString:(NSString *)URL
              HTTPHeaders:(NSDictionary *)HTTPHeaders
               parameters:(NSDictionary *)parameters
-         completionBlock:(void(^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+         completionBlock:(void(^)(NSInteger code, NSString *message, id responseData))completionBlock
             failureBlock:(void(^)(NSInteger code, NSString *errorString))failureBlock;
 
 // MARK: POST
@@ -61,14 +68,14 @@ static NSString * const kMimeTypeAudioAMR = @"audio/amr";
  */
 + (void)POSTWithURLString:(NSString *)URL
                parameters:(NSDictionary *)parameters
-          completionBlock:(void(^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+          completionBlock:(void(^)(NSInteger code, NSString *message, id responseData))completionBlock
              failureBlock:(void(^)(NSInteger code, NSString *errorString))failureBlock;
 
 
 
 /**
  POST网络请求(请求头配置)
-
+ 
  @param URL URL
  @param HTTPHeaders 请求头
  @param parameters 请求参数
@@ -78,7 +85,7 @@ static NSString * const kMimeTypeAudioAMR = @"audio/amr";
 + (void)POSTWithURLString:(NSString *)URL
               HTTPHeaders:(NSDictionary *)HTTPHeaders
                parameters:(NSDictionary *)parameters
-          completionBlock:(void(^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+          completionBlock:(void(^)(NSInteger code, NSString *message, id responseData))completionBlock
              failureBlock:(void(^)(NSInteger code, NSString *errorString))failureBlock;
 
 // MARK: Other
@@ -98,7 +105,7 @@ static NSString * const kMimeTypeAudioAMR = @"audio/amr";
                 URLString:(NSString *)URL
               HTTPHeaders:(NSDictionary *)HTTPHeaders
                parameters:(NSDictionary *)parameters
-          completionBlock:(void(^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+          completionBlock:(void(^)(NSInteger code, NSString *message, id responseData))completionBlock
              failureBlock:(void(^)(NSInteger code, NSString *errorString))failureBlock;
 
 
@@ -120,7 +127,7 @@ static NSString * const kMimeTypeAudioAMR = @"audio/amr";
                           field:(NSString *)field
                        fileName:(NSString *)fileName
                        mimeType:(NSString *)mimeType
-                completionBlock:(void(^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+                completionBlock:(void(^)(NSInteger code, NSString *message, id responseData))completionBlock
                    failureBlock:(void(^)(NSInteger code, NSString *errorString))failureBlock;
 
 /**
@@ -139,7 +146,7 @@ static NSString * const kMimeTypeAudioAMR = @"audio/amr";
                             fileArray:(NSArray<NSDictionary *> *)fileArr
                                 field:(NSString *)field
                              mimeType:(NSString *)mimeType
-                      completionBlock:(void(^)(BOOL isSuccessful, NSInteger code, NSString *message, id responseData))completionBlock
+                      completionBlock:(void(^)(NSInteger code, NSString *message, id responseData))completionBlock
                          failureBlock:(void(^)(NSInteger code, NSString *errorString))failureBlock;
 
 

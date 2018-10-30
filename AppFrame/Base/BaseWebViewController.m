@@ -27,6 +27,12 @@ NSString * const JS_SHOW_VC = @"showController";
     
     [self configWeb];
     [self configProgress];
+    
+    if ([self.URL isNotEmpty]) {
+        [self loadRequestWithURL:self.URL];
+    } else if ([self.HTMLString isNotEmpty]) {
+        [self loadRequestWithHTMLStr:self.HTMLString];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -264,16 +270,11 @@ NSString * const JS_SHOW_VC = @"showController";
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
-    if ([self.URL isNotEmpty]) {
-        [self loadRequestWithURL:self.URL];
-    } else if ([self.HTMLString isNotEmpty]) {
-        [self loadRequestWithHTMLStr:self.HTMLString];
-    }
     [self.view addSubview:_web];
 }
 
 - (void)configProgress {
-    _progress = [[UIProgressView alloc] initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, SCREEN_WIDTH, 1.f)];
+    _progress = [[UIProgressView alloc] initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, SCREEN_WIDTH, 2.f)];
     _progress.tintColor = [UIColor colorWithRed:0.3f green:0.44f blue:0.82f alpha:0.8f];
     _progress.trackTintColor = [UIColor clearColor];
     [self.view insertSubview:_progress aboveSubview:self.web];
@@ -281,8 +282,8 @@ NSString * const JS_SHOW_VC = @"showController";
 
 - (void)updateNavigationItems {
     if (self.web.canGoBack) {
-        [self setNavItemsWithImgNames:@[@"navbar_back_gray", @"navbar_close_gray"] side:NavigationBarLeftSide target:self action:@selector(navigationItemClick:)];
-    }else{
+        [self setNavItemsWithImgNames:@[@"navbar_back_black", @"navbar_close_black"] side:NavigationBarLeftSide target:self action:@selector(navigationItemClick:)];
+    } else {
         [self setNavBackItem];
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     }

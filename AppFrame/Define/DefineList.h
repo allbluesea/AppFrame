@@ -27,8 +27,12 @@
 
 // app是否是第一次安装
 #define INSTALLED [NSString stringWithFormat:@"%@-installed",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]
-static NSString * const kUserNotFoundId = @"-999"; // 用户不存在
-
+static NSString * const kAccount = @"account"; ///< Account
+static NSString * const kUserNotFoundId = @"-999"; ///< 用户不存在
+static NSString * const kSession = @"session"; ///< Session
+static NSString * const kSessionExpiresDate = @"sessionExpiresDate"; ///< Session过期时间
+static NSString * const kSearchHistoryDate = @"searchHistoryDate"; ///<搜索历史
+static NSString * const kEverLoginUser = @"everLoginUser"; ///< 曾登录的用户
 
 // MARK:----- 单例 -----
 

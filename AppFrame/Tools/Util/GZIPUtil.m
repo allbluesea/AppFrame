@@ -70,7 +70,7 @@
     
     zlibStreamStruct.next_in   = (Bytef*)[uncompressedData bytes]; // Pointer to input bytes
     
-    zlibStreamStruct.avail_in  = [uncompressedData length]; // Number of input bytes left to process
+    zlibStreamStruct.avail_in  = (int)[uncompressedData length]; // Number of input bytes left to process
     
     
     
@@ -192,7 +192,7 @@
         
         // from the buffer's total capacity
         
-        zlibStreamStruct.avail_out = [compressedData length] - zlibStreamStruct.total_out;
+        zlibStreamStruct.avail_out = (uInt)([compressedData length] - zlibStreamStruct.total_out);
         
         
         

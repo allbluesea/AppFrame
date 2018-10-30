@@ -58,12 +58,29 @@ typedef NS_ENUM(NSUInteger, NavigationBarSide) {
 - (void)setNavigationBarColor:(UIColor *)color;
 /// 设置状态栏
 - (void)setStatusBarStyle:(UIStatusBarStyle)statusBarStyle;
+/// 标题 设置
+- (void)setnavigationBarTitleStyleWithFont:(UIFont *)font color:(UIColor *)color;
 
 /// 返回
 - (void)back;
+/// 关闭
+- (void)dismiss;
 /// 显示hud消息
 - (void)showMessage:(NSString *)msg;
 /// 跳转登录
 - (void)goToLogin;
+
+/// 常用按钮
+- (UIButton *)commonButton;
+
+/*
+/// 显示分享
+- (void)showsShareView;
+/// 选中分享平台 需在子类重写
+- (void)didSelectPlatformType:(UMSocialPlatformType)type;
+/// 分享调用
+- (void)shareToPlatform:(UMSocialPlatformType)type messageObject:(UMSocialMessageObject *)messageObject completion:(UMSocialRequestCompletionHandler)completion;
+ */
+
 
 @end

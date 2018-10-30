@@ -15,6 +15,8 @@ static NSUInteger const REQUEST_PAGE_SIZE = 10;
 
 @interface BaseTableViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
+@property (nonatomic, assign) BOOL showsEmptyDataView;
+
 @end
 
 @implementation BaseTableViewController
@@ -24,10 +26,8 @@ static NSUInteger const REQUEST_PAGE_SIZE = 10;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
     _dataArray = [NSMutableArray array];
-//    _parameters = [NSMutableDictionary dictionaryWithDictionary:GM.must_parms];
+    _parameters = [[NSMutableDictionary alloc] init];
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - NAV_STATUS_HEIGHT)
                                           style:UITableViewStyleGrouped];
@@ -40,7 +40,12 @@ static NSUInteger const REQUEST_PAGE_SIZE = 10;
     _table.estimatedSectionFooterHeight = 0;
     _table.emptyDataSetSource = self;
     _table.emptyDataSetDelegate = self;
-    
+    if (@available(iOS 11.0, *)) {
+        _table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        // Fallback on earlier versions
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTableData)];
     header.automaticallyChangeAlpha = YES;
     _table.mj_header = header;
@@ -78,21 +83,26 @@ static NSUInteger const REQUEST_PAGE_SIZE = 10;
 
 - (void)loadList {
     if (!_unpaged) {
-        [self.parameters setObject:@(_page) forKey:@"pagenum"];
+        [self.parameters setObject:@(_page) forKey:@"pageNum"];
+        [self.parameters setObject:@(REQUEST_PAGE_SIZE) forKey:@"pageSize"];
     }
 }
 
 - (void)loadOtherData {}
 
 - (void)loadCaches:(NSArray *)arr {
-    [self loadCaches:arr withModelClass:nil];
+    [self loadCaches:arr withModelName:nil];
 }
 
-- (void)loadCaches:(NSArray *)arr withModelClass:(NSString *)modelName {
+- (void)loadCaches:(NSArray *)arr withModelName:(NSString *)modelName {
+    [self loadCaches:arr withModelClass:NSClassFromString(modelName)];
+}
+
+- (void)loadCaches:(NSArray *)arr withModelClass:(Class)modelClass {
     if (arr.count > 0) {
-        if (NSClassFromString(modelName)) {
+        if (modelClass) {
             for (NSDictionary *dict in arr) {
-                id model = [NSClassFromString(modelName) mj_objectWithKeyValues:dict];
+                id model = [modelClass mj_objectWithKeyValues:dict];
                 [self.dataArray addObject:model];
             }
         } else {
@@ -101,7 +111,15 @@ static NSUInteger const REQUEST_PAGE_SIZE = 10;
     }
 }
 
-- (void)successHandler:(NSArray *)arr modelClass:(NSString *)modelName {
+- (void)successHandler:(NSArray *)arr modelName:(NSString *)modelName {
+    [self successHandler:arr modelClass:NSClassFromString(modelName)];
+}
+
+- (void)successHandler:(NSArray *)arr modelClass:(Class)modelClass {
+    if (!self.showsEmptyDataView) {
+        self.showsEmptyDataView = YES;
+        [self.table reloadEmptyDataSet];
+    }
     if ([self.table.mj_header isRefreshing]) [self.table.mj_header endRefreshing];
     if ([self.table.mj_footer isRefreshing]) [self.table.mj_footer endRefreshing];
     if (!_unpaged) {
@@ -111,13 +129,17 @@ static NSUInteger const REQUEST_PAGE_SIZE = 10;
         [self.dataArray removeAllObjects];
     }
     for (NSDictionary *dict in arr) {
-        id model = [NSClassFromString(modelName) mj_objectWithKeyValues:dict];
+        id model = [modelClass mj_objectWithKeyValues:dict];
         [self.dataArray addObject:model];
     }
     [self.table reloadData];
 }
 
 - (void)successHandler:(NSArray *)arr {
+    if (!self.showsEmptyDataView) {
+        self.showsEmptyDataView = YES;
+        [self.table reloadEmptyDataSet];
+    }
     if ([self.table.mj_header isRefreshing]) [self.table.mj_header endRefreshing];
     if ([self.table.mj_footer isRefreshing]) [self.table.mj_footer endRefreshing];
     if (!_unpaged) {
@@ -131,6 +153,10 @@ static NSUInteger const REQUEST_PAGE_SIZE = 10;
 }
 
 - (void)failedHandler:(NSString *)errMsg {
+    if (!self.showsEmptyDataView) {
+        self.showsEmptyDataView = YES;
+        [self.table reloadEmptyDataSet];
+    }
     if ([self.table.mj_header isRefreshing]) [self.table.mj_header endRefreshing];
     if ([self.table.mj_footer isRefreshing]) [self.table.mj_footer endRefreshing];
     if (!_unpaged && self.dataArray.count == 0) {
@@ -209,7 +235,7 @@ static NSUInteger const REQUEST_PAGE_SIZE = 10;
 
 //是否显示空白页，默认YES
 - (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView {
-    return YES;
+    return self.showsEmptyDataView;
 }
 
 //是否允许点击，默认YES
@@ -220,6 +246,11 @@ static NSUInteger const REQUEST_PAGE_SIZE = 10;
 //是否允许滚动，默认NO
 - (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
     return YES;
+}
+
+//点击空数据页面
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {
+    [self loadNewTableData];
 }
 
 
@@ -254,13 +285,20 @@ static NSUInteger const REQUEST_PAGE_SIZE = 10;
 }
 
 - (void)hidesTableFooter {
-    _unpaged = YES;
     [self.table.mj_footer setHidden:YES];
 }
 
 - (void)hidesTableRefresh {
     [self.table.mj_header setHidden:YES];
     [self.table.mj_footer setHidden:YES];
+}
+
+// MARK: Setter
+- (void)setUnpaged:(BOOL)unpaged {
+    _unpaged = unpaged;
+    if (unpaged) {
+        [self hidesTableFooter];
+    }
 }
 
 /*

@@ -16,6 +16,7 @@ static inline AppDelegate *SeekAppDelegate(void) {
 @interface AppDelegate (Service)
 
 - (void)configUI; ///< 配置UI
+- (void)configUserInfo; ///< 配置用户信息
 - (void)configShareInfo; ///< 配置分享平台
 - (void)configPushInfoWithOption:(NSDictionary *)options; ///< 配置推送平台
 - (void)config3DTouch; ///< 配置3DTouch

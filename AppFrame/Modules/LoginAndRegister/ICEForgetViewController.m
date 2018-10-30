@@ -1,18 +1,18 @@
 //
-//  EGLoginViewController.m
+//  ICEForgetViewController.m
 //  AppFrame
 //
-//  Created by icebrk on 2018/8/20.
+//  Created by stary on 2018/10/30.
 //  Copyright © 2018年 Firebrk. All rights reserved.
 //
 
-#import "EGLoginViewController.h"
+#import "ICEForgetViewController.h"
 
-@interface EGLoginViewController ()
+@interface ICEForgetViewController ()
 
 @end
 
-@implementation EGLoginViewController
+@implementation ICEForgetViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
