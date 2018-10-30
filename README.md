@@ -15,4 +15,6 @@ Simple steps:
 3. Select the AppFrame.xcodeproj -> Show Package Contents -> Open project.pbxproj -> Replace 'AppFrame' with your project name
 
 4. Replace 'AppFrame' with your project name in Podfile
+
+5. You can also replace the comment '// AppFrame' in header part of files, this step is not necessary
  
