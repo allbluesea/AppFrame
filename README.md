@@ -16,5 +16,5 @@ Simple steps:
 
 4. Replace 'AppFrame' with your project name in Podfile
 
-5. You can also replace the comment '// AppFrame' in header part of files, this step is not necessary
+5. You can also replace the comment '// AppFrame' in header part of files
  
